@@ -19,6 +19,30 @@
 </head>
 <body class="text-slate-800 pb-12">
 
+    <!-- النافذة المنبثقة (التنويه الهام) -->
+    <div id="notice-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl transform transition-all">
+            <!-- أيقونة الخزنة -->
+            <div class="mb-4 flex justify-center">
+                <span class="text-5xl">🏛️</span>
+            </div>
+            
+            <!-- العنوان -->
+            <h3 class="text-2xl font-extrabold text-slate-800 mb-3">تنويه هام</h3>
+            
+            <!-- النص المعدل -->
+            <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium">
+                مرحباً بكم! نود إحاطتكم بأنه جاري العمل على تطوير وتحديث الخزنة المالية باستمرار.
+            </p>
+            
+            <!-- زر الإغلاق -->
+            <button onclick="closeNoticeModal()" class="w-full py-3.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/30 transition duration-200 flex items-center justify-center gap-2">
+                <span>حسناً، الدخول للموقع</span>
+                <span>👍</span>
+            </button>
+        </div>
+    </div>
+
     <!-- الهيدر / الشريط العلوي -->
     <header class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white shadow-lg">
         <div class="max-w-5xl mx-auto px-4 py-8 text-center">
@@ -159,6 +183,11 @@
 
     <!-- جافاسكريبت لجلب البيانات وتحديث الصفحة تلقائياً -->
     <script>
+        // دالة إغلاق التنويه المنبثق
+        function closeNoticeModal() {
+            document.getElementById('notice-modal').classList.add('hidden');
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             // 1. جلب وتحديث الأرقام المالية
             const income = localStorage.getItem('elite_income');
