@@ -71,6 +71,7 @@ main{max-width:100%!important;padding:0!important}
 <div class="hidden md:flex items-center gap-5 text-sm text-blue-100">
 <a href="#finance">الموقف المالي</a>
 <a href="#transactions">العمليات</a>
+<a href="#goals">الهدف المالي</a>
 <a href="#services">الخدمات</a>
 <a href="#issues">الاحتياجات</a>
 <a href="#faq">الأسئلة الشائعة</a>
@@ -188,15 +189,45 @@ main{max-width:100%!important;padding:0!important}
 <!-- 3: أهداف الخزنة -->
 <section id="goals">
 <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">التخطيط المالي</span></div>
-<h2 class="text-2xl font-black mb-4">أهداف الخزنة ونسبة الإنجاز</h2>
+<h2 class="text-2xl font-black mb-4">هدف الخزنة ونسبة الإنجاز</h2>
 <div class="card p-6">
-<div class="flex items-start gap-4">
-<div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-bullseye"></i></div>
+<div class="flex flex-col md:flex-row items-start gap-5">
+<div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl shrink-0"><i class="fa-solid fa-bullseye"></i></div>
+<div class="flex-1 w-full">
+<div class="flex flex-wrap justify-between items-center gap-3">
 <div>
-<h3 class="font-extrabold">لم يُحدد هدف مالي معلن بعد</h3>
-<p class="text-sm text-slate-500 leading-7 mt-2">عند اعتماد هدف محدد ومبلغ مستهدف من إدارة الخزنة، ستظهر هنا قيمة الهدف والمبلغ المحقق ونسبة الإنجاز.</p>
-<div class="progress-track mt-4"><div class="progress-fill" style="width:0%"></div></div>
-<p class="text-xs text-slate-400 mt-2">نسبة الإنجاز: غير متاحة حالياً</p>
+<h3 class="font-extrabold text-lg">هدفنا الوصول إلى 3 مليون جنيه</h3>
+<p class="text-sm text-slate-500 mt-1">معاً نقترب من تحقيق هدف الخزنة.</p>
+</div>
+<div class="text-left">
+<p class="text-xs text-slate-400">الهدف المالي</p>
+<p class="font-black text-xl text-slate-800">3,000,000 ج.س</p>
+</div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
+<div class="bg-emerald-50 rounded-xl p-4">
+<p class="text-xs text-emerald-700 font-bold">المبلغ المحقق</p>
+<p id="goal-achieved" class="text-xl font-black text-emerald-700 mt-2">317,000 ج.س</p>
+</div>
+<div class="bg-amber-50 rounded-xl p-4">
+<p class="text-xs text-amber-700 font-bold">المبلغ المتبقي</p>
+<p id="goal-remaining" class="text-xl font-black text-amber-700 mt-2">2,683,000 ج.س</p>
+</div>
+</div>
+
+<div class="flex justify-between items-center mt-5 mb-2">
+<span class="text-sm font-bold">نسبة تحقيق الهدف</span>
+<span id="goal-percent" class="text-lg font-black text-amber-700">10.57%</span>
+</div>
+<div class="progress-track" style="height:14px">
+<div id="goal-progress" class="progress-fill" style="width:10.57%"></div>
+</div>
+<div class="flex justify-between text-xs text-slate-400 mt-2">
+<span>بداية الهدف</span>
+<span>3,000,000 ج.س</span>
+</div>
+<p class="text-xs text-slate-500 leading-6 mt-4">كل مساهمة تقربنا خطوة من الهدف. شكراً لكل من ساهم وساند الخزنة.</p>
 </div>
 </div>
 </div>
@@ -233,13 +264,20 @@ main{max-width:100%!important;padding:0!important}
 <div class="card p-6">
 <div class="flex flex-col sm:flex-row gap-4 items-start">
 <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-hands-holding-circle"></i></div>
-<div>
+<div class="flex-1 w-full">
 <h3 class="font-extrabold">كل مساهمة تصنع فرقاً</h3>
 <p class="text-sm text-slate-500 leading-7 mt-2">تُستخدم مساهمات الدفعة في دعم احتياجاتها وفق ما تعتمده الإدارة. لا نعرض أسماء المستفيدين أو أي تفاصيل شخصية حفاظاً على الخصوصية.</p>
 <div class="grid grid-cols-2 gap-3 mt-4">
-<div class="bg-slate-50 rounded-xl p-4"><p class="text-xs text-slate-400">عدد المساهمات</p><p class="font-black mt-1">غير متاح</p></div>
-<div class="bg-slate-50 rounded-xl p-4"><p class="text-xs text-slate-400">عدد المبادرات المنفذة</p><p class="font-black mt-1">غير متاح</p></div>
+<div class="bg-slate-50 rounded-xl p-4">
+<p class="text-xs text-slate-400">عدد المساهمات</p>
+<p id="contribution-count" class="font-black text-2xl text-emerald-700 mt-1">235</p>
 </div>
+<div class="bg-slate-50 rounded-xl p-4">
+<p class="text-xs text-slate-400">عدد المبادرات المنفذة</p>
+<p class="font-black mt-1">غير متاح</p>
+</div>
+</div>
+<p class="text-xs text-slate-400 mt-3">عدد المساهمات المعتمد حالياً: 235 مساهمة.</p>
 </div>
 </div>
 </div>
@@ -346,7 +384,12 @@ main{max-width:100%!important;padding:0!important}
 </footer>
 
 <script>
-function closeNoticeModal(){document.getElementById('notice-modal').classList.add('hidden')}
+const TREASURY_GOAL = 3000000;
+const CONTRIBUTION_COUNT = 235;
+
+function closeNoticeModal(){
+ document.getElementById('notice-modal').classList.add('hidden');
+}
 
 function readAmount(key,fallback){
  const value=localStorage.getItem(key);
@@ -355,7 +398,9 @@ function readAmount(key,fallback){
  return digits?Number(digits):fallback;
 }
 
-function formatMoney(number){return Number(number).toLocaleString('en-US')}
+function formatMoney(number){
+ return Number(number).toLocaleString('en-US');
+}
 
 function updateFinance(){
  const income=readAmount('elite_income',317000);
@@ -376,13 +421,30 @@ function updateFinance(){
  document.getElementById('expense-progress').style.width=spent+'%';
  document.getElementById('expense-percent').textContent=spent.toFixed(1)+'%';
  document.getElementById('balance-percent').textContent=remaining.toFixed(1)+'%';
+
+ // تحديث هدف الخزنة بناءً على إجمالي المبالغ المجمعة
+ const achieved=Math.min(income,TREASURY_GOAL);
+ const goalRemaining=Math.max(0,TREASURY_GOAL-income);
+ const goalPercent=Math.min(100,(income/TREASURY_GOAL)*100);
+
+ document.getElementById('goal-achieved').textContent=formatMoney(income)+' ج.س';
+ document.getElementById('goal-remaining').textContent=formatMoney(goalRemaining)+' ج.س';
+ document.getElementById('goal-percent').textContent=goalPercent.toFixed(2)+'%';
+ document.getElementById('goal-progress').style.width=goalPercent+'%';
+
+ // عدد المساهمات المعتمد
+ document.getElementById('contribution-count').textContent=formatMoney(CONTRIBUTION_COUNT);
 }
 
 function renderIssues(){
  const body=document.getElementById('issues-list-body');
  body.innerHTML='';
  let issues=[];
- try{issues=JSON.parse(localStorage.getItem('elite_issues'))||[]}catch(e){issues=[]}
+ try{
+  issues=JSON.parse(localStorage.getItem('elite_issues'))||[];
+ }catch(e){
+  issues=[];
+ }
 
  if(!issues.length){
   document.getElementById('empty-issues').classList.remove('hidden');
@@ -403,8 +465,13 @@ function renderIssues(){
  });
 }
 
-function toggleFaq(button){button.parentElement.classList.toggle('open')}
-function printReport(){window.print()}
+function toggleFaq(button){
+ button.parentElement.classList.toggle('open');
+}
+
+function printReport(){
+ window.print();
+}
 
 document.addEventListener('DOMContentLoaded',()=>{
  updateFinance();
