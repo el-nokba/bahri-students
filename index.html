@@ -37,6 +37,9 @@ body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
 .milestone.current:before{background:#d8b56b;box-shadow:0 0 0 2px #d8b56b}
 .milestone:not(:last-child):after{content:"";position:absolute;right:10px;top:18px;height:calc(100% + 4px);width:1px;background:#e2e8f0}
 .status-pill{font-size:11px;padding:5px 10px;border-radius:30px;background:#f1f5f9;color:#64748b}
+.form-field{width:100%;border:1px solid #dce3ed;border-radius:12px;padding:13px 14px;background:#fff;color:#18243a;font-family:'Tajawal',sans-serif;font-size:14px;outline:none;transition:.2s}
+.form-field:focus{border-color:#5277b8;box-shadow:0 0 0 3px rgba(82,119,184,.12)}
+.form-label{display:block;font-size:13px;font-weight:800;color:#334155;margin-bottom:8px}
 @media(max-width:640px){.hero h1{font-size:27px}.hero{border-radius:0 0 28px 28px}}
 @media print{
 .no-print,#notice-modal,header nav,.action-card,footer{display:none!important}
@@ -359,21 +362,50 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
  </div>
 </section>
 
-<!-- 11 صندوق الاقتراحات -->
+<!-- 11 صندوق الاقتراحات والشكاوى -->
 <section id="suggestions">
  <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">رأيك يهمنا</span></div>
  <h2 class="text-2xl font-black mb-4">صندوق الاقتراحات والشكاوى</h2>
+
  <div class="card p-6">
   <div class="flex items-start gap-4">
    <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl shrink-0"><i class="fa-regular fa-lightbulb"></i></div>
    <div>
     <h3 class="font-extrabold">ساهم في تطوير عمل الخزنة</h3>
-    <p class="text-sm text-slate-500 leading-7 mt-2">نرحب بمقترحاتكم وملاحظاتكم التي تساعد على تحسين الخدمات وتنظيم العمل المالي.</p>
+    <p class="text-sm text-slate-500 leading-7 mt-2">نرحب بمقترحاتكم وملاحظاتكم وشكاواكم التي تساعد على تحسين الخدمات وتنظيم العمل المالي. تصل رسالتك مباشرة إلى مسؤول متابعة الصندوق.</p>
    </div>
   </div>
-  <div class="mt-5 rounded-xl bg-amber-50 border border-amber-100 p-4">
-   <p class="text-sm font-bold text-amber-800"><i class="fa-solid fa-circle-info ml-2"></i>سيتم تفعيل استقبال الاقتراحات بعد ربط قاعدة البيانات.</p>
-   <p class="text-xs text-amber-700 mt-2 leading-6">لن نعرض نموذجاً يوهمك بأن رسالتك وصلت للإدارة قبل تفعيل الإرسال والحفظ المشترك.</p>
+
+  <form id="suggestion-form" class="mt-6 space-y-5" onsubmit="sendSuggestion(event)">
+   <div>
+    <label for="suggestion-type" class="form-label">نوع الرسالة</label>
+    <select id="suggestion-type" class="form-field" required>
+     <option value="">اختر نوع الرسالة</option>
+     <option value="اقتراح">اقتراح</option>
+     <option value="شكوى">شكوى</option>
+     <option value="ملاحظة">ملاحظة</option>
+    </select>
+   </div>
+
+   <div>
+    <label for="suggestion-title" class="form-label">عنوان الرسالة</label>
+    <input id="suggestion-title" type="text" class="form-field" placeholder="اكتب عنواناً مختصراً للرسالة" maxlength="100" required>
+   </div>
+
+   <div>
+    <label for="suggestion-details" class="form-label">تفاصيل الرسالة</label>
+    <textarea id="suggestion-details" class="form-field" rows="5" maxlength="2000" placeholder="اكتب اقتراحك أو شكواك بالتفصيل..." required></textarea>
+   </div>
+
+   <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-xl text-white font-bold text-sm no-print" style="background:#15966b">
+    <i class="fa-brands fa-whatsapp text-lg"></i>
+    إرسال الرسالة عبر واتساب
+   </button>
+  </form>
+
+  <div class="mt-5 rounded-xl bg-emerald-50 border border-emerald-100 p-4">
+   <p class="text-sm font-bold text-emerald-800"><i class="fa-solid fa-shield-halved ml-2"></i>رسالتك ستصل مباشرة إلى مسؤول الصندوق</p>
+   <p class="text-xs text-emerald-700 mt-2 leading-6">بعد الضغط على زر الإرسال ستُفتح محادثة واتساب برسالتك جاهزة. يرجى الضغط على إرسال داخل واتساب لإتمام العملية. لا تُحفظ الرسائل في الموقع.</p>
   </div>
  </div>
 </section>
@@ -404,8 +436,8 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 <section id="contact">
  <div class="rounded-3xl p-7 md:p-9 text-white" style="background:linear-gradient(120deg,#142440,#233e68)">
   <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-   <div><h2 class="text-2xl font-black">تواصل مع إدارة الخزنة</h2><p class="text-sm text-blue-100 leading-7 mt-2">للاستفسارات أو تقديم ملاحظة بخصوص الموقف المالي والخدمات.</p></div>
-   <a href="https://wa.me/249116314682" target="_blank" rel="noopener" class="no-print bg-emerald-600 hover:bg-emerald-700 px-5 py-3 rounded-xl font-bold text-sm"><i class="fa-brands fa-whatsapp ml-2"></i>التواصل عبر واتساب</a>
+   <div><h2 class="text-2xl font-black">تواصل مع الأمين المالي</h2><p class="text-sm text-blue-100 leading-7 mt-2">للاستفسارات المالية ومتابعة الأمور المتعلقة بالحسابات والمساهمات.</p></div>
+   <a href="https://wa.me/249116314682" target="_blank" rel="noopener" class="no-print bg-emerald-600 hover:bg-emerald-700 px-5 py-3 rounded-xl font-bold text-sm"><i class="fa-brands fa-whatsapp ml-2"></i>التواصل مع الأمين المالي</a>
   </div>
  </div>
 </section>
@@ -444,6 +476,10 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 <script>
 const TREASURY_GOAL=3000000;
 const CONTRIBUTION_COUNT=235;
+
+// رقم مسؤول استقبال الاقتراحات والشكاوى
+// الصيغة الدولية للسودان: 249 ثم الرقم دون الصفر الأول
+const SUGGESTIONS_WHATSAPP='249113991528';
 
 function closeNoticeModal(){
  document.getElementById('notice-modal').classList.add('hidden');
@@ -511,6 +547,36 @@ function updateFinance(){
  // تاريخ آخر تحديث إذا كانت لوحة الإدارة تحفظه
  const lastUpdate=localStorage.getItem('elite_last_update');
  document.getElementById('last-update').textContent=lastUpdate||'غير مسجل حالياً';
+}
+
+// إرسال الاقتراح أو الشكوى عبر واتساب
+function sendSuggestion(event){
+ event.preventDefault();
+
+ const type=document.getElementById('suggestion-type').value.trim();
+ const title=document.getElementById('suggestion-title').value.trim();
+ const details=document.getElementById('suggestion-details').value.trim();
+
+ if(!type||!title||!details){
+  alert('يرجى إكمال جميع الحقول قبل الإرسال.');
+  return;
+ }
+
+ const message=
+  'رسالة جديدة إلى مسؤول صندوق الاقتراحات والشكاوى\n\n'+
+  'نوع الرسالة: '+type+'\n'+
+  'العنوان: '+title+'\n\n'+
+  'التفاصيل:\n'+details;
+
+ const whatsappURL='https://wa.me/'+SUGGESTIONS_WHATSAPP+'?text='+encodeURIComponent(message);
+
+ // فتح واتساب؛ على الطالب الضغط على إرسال داخل المحادثة
+ const newWindow=window.open(whatsappURL,'_blank');
+
+ // بديل في حال منع المتصفح فتح نافذة جديدة
+ if(!newWindow){
+  window.location.href=whatsappURL;
+ }
 }
 
 function renderIssues(){
