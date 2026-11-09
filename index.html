@@ -48,6 +48,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 .hero p,.hero span{color:#333!important}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -615,10 +616,253 @@ function printReport(){
  window.print();
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
- updateFinance();
- renderIssues();
+
+/* ==========================================
+   ربط الشاشة الرئيسية بقاعدة بيانات Supabase
+   المفتاح Publishable مخصص للاستخدام العام.
+   لا تضع هنا أبداً Secret / service_role.
+========================================== */
+const SUPABASE_URL = 'https://cglezfkobtnfvgzdtjhi.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_BlMI-s9QSTDFrSyjiMz_8g_zLld2_9U';
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+function showLoadError(containerId, message) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = '';
+  const box = document.createElement('div');
+  box.className = 'empty-state';
+  box.textContent = message;
+  el.appendChild(box);
+}
+
+async function updateFinance() {
+  const { data, error } = await supabaseClient
+    .from('public_treasury_summary')
+    .select('*')
+    .single();
+
+  if (error || !data) {
+    console.error('Supabase finance summary:', error);
+    setText('last-update', 'تعذر تحميل البيانات من قاعدة البيانات');
+    return;
+  }
+
+  const income = Number(data.total_income || 0);
+  const expenses = Number(data.total_expenses || 0);
+  const balance = Number(data.current_balance || 0);
+  const goal = Number(data.target_amount || TREASURY_GOAL);
+  const contributions = Number(data.contributions_count || 0);
+
+  setText('total-income', formatMoney(income));
+  setText('total-expenses', formatMoney(expenses));
+  setText('current-balance', formatMoney(balance));
+  setText('contribution-count', formatMoney(contributions));
+
+  const spent = income > 0 ? Math.min(100, Math.max(0, expenses / income * 100)) : 0;
+  const remaining = income > 0 ? Math.max(0, 100 - spent) : 0;
+  document.getElementById('expense-progress').style.width = spent + '%';
+  setText('expense-percent', spent.toFixed(1) + '%');
+  setText('balance-percent', remaining.toFixed(1) + '%');
+
+  const maxValue = Math.max(income, expenses, Math.max(0, balance), 1);
+  setText('chart-income-label', formatMoney(income) + ' ج.س');
+  setText('chart-expenses-label', formatMoney(expenses) + ' ج.س');
+  setText('chart-balance-label', formatMoney(balance) + ' ج.س');
+  document.getElementById('chart-income-bar').style.width = (income / maxValue * 100) + '%';
+  document.getElementById('chart-expenses-bar').style.width = (expenses / maxValue * 100) + '%';
+  document.getElementById('chart-balance-bar').style.width = (Math.max(0, balance) / maxValue * 100) + '%';
+
+  const goalRemaining = Math.max(0, goal - income);
+  const goalPercent = goal > 0 ? Math.min(100, Math.max(0, income / goal * 100)) : 0;
+  setText('goal-achieved', formatMoney(income) + ' ج.س');
+  setText('goal-remaining', formatMoney(goalRemaining) + ' ج.س');
+  setText('goal-percent', goalPercent.toFixed(2) + '%');
+  document.getElementById('goal-progress').style.width = goalPercent + '%';
+
+  const stages = [500000, 1000000, 1500000, 2000000, goal];
+  const milestones = document.querySelectorAll('#milestones .milestone');
+  let nextStage = stages.findIndex(stage => income < stage);
+  if (nextStage === -1) nextStage = stages.length;
+  milestones.forEach((item, index) => {
+    item.classList.remove('done', 'current');
+    if (income >= stages[index]) item.classList.add('done');
+    else if (index === nextStage) item.classList.add('current');
+  });
+
+  setText('last-update', 'محدّث من قاعدة البيانات');
+}
+
+async function renderTransactions() {
+  const container = document.getElementById('transactions-list');
+  const { data, error } = await supabaseClient
+    .from('public_financial_transactions')
+    .select('id, transaction_type, amount, category, description, transaction_date')
+    .order('transaction_date', { ascending: false })
+    .limit(8);
+
+  if (error) {
+    console.error('Supabase transactions:', error);
+    showLoadError('transactions-list', 'تعذر تحميل سجل العمليات حالياً.');
+    return;
+  }
+
+  container.innerHTML = '';
+  if (!data || !data.length) {
+    showLoadError('transactions-list', 'لا توجد عمليات تفصيلية منشورة حالياً. ستظهر هنا بعد تسجيلها من لوحة الإدارة.');
+    return;
+  }
+
+  const list = document.createElement('div');
+  list.className = 'divide-y divide-slate-100';
+  data.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'py-4 flex flex-wrap items-start justify-between gap-3';
+    const details = document.createElement('div');
+    details.className = 'min-w-0 flex-1';
+    const title = document.createElement('p');
+    title.className = 'font-extrabold text-sm';
+    title.textContent = item.transaction_type === 'income' ? 'إيراد' : 'مصروف';
+    const desc = document.createElement('p');
+    desc.className = 'text-xs text-slate-500 mt-1';
+    desc.textContent = [item.category, item.description].filter(Boolean).join(' — ') || 'بدون وصف إضافي';
+    const date = document.createElement('p');
+    date.className = 'text-xs text-slate-400 mt-1';
+    date.textContent = item.transaction_date || '';
+    details.append(title, desc, date);
+    const amount = document.createElement('strong');
+    amount.className = item.transaction_type === 'income' ? 'text-emerald-700' : 'text-rose-600';
+    amount.textContent = (item.transaction_type === 'income' ? '+' : '−') + formatMoney(item.amount) + ' ج.س';
+    row.append(details, amount);
+    list.appendChild(row);
+  });
+  container.appendChild(list);
+}
+
+async function renderAnnouncements() {
+  const container = document.getElementById('announcements-list');
+  const { data, error } = await supabaseClient
+    .from('announcements')
+    .select('id, title, content, created_at')
+    .eq('is_active', true)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Supabase announcements:', error);
+    showLoadError('announcements-list', 'تعذر تحميل الإعلانات حالياً.');
+    return;
+  }
+  container.innerHTML = '';
+  if (!data || !data.length) {
+    showLoadError('announcements-list', 'لا توجد إعلانات جديدة حالياً.');
+    return;
+  }
+  data.forEach(item => {
+    const card = document.createElement('article');
+    card.className = 'card p-5';
+    const heading = document.createElement('h3');
+    heading.className = 'font-extrabold';
+    heading.textContent = item.title;
+    const body = document.createElement('p');
+    body.className = 'text-sm text-slate-500 leading-7 mt-2';
+    body.textContent = item.content;
+    const date = document.createElement('p');
+    date.className = 'text-xs text-slate-400 mt-3';
+    date.textContent = item.created_at ? new Date(item.created_at).toLocaleDateString('ar') : '';
+    card.append(heading, body, date);
+    container.appendChild(card);
+  });
+}
+
+async function renderAchievements() {
+  const container = document.getElementById('achievements-list');
+  const { data, error } = await supabaseClient
+    .from('achievements')
+    .select('id, title, description, achievement_date')
+    .order('achievement_date', { ascending: false });
+
+  if (error) {
+    console.error('Supabase achievements:', error);
+    showLoadError('achievements-list', 'تعذر تحميل الإنجازات حالياً.');
+    return;
+  }
+  container.innerHTML = '';
+  if (!data || !data.length) {
+    showLoadError('achievements-list', 'لا توجد إنجازات موثقة مضافة حتى الآن.');
+    return;
+  }
+  data.forEach(item => {
+    const card = document.createElement('article');
+    card.className = 'card p-6';
+    const heading = document.createElement('h3');
+    heading.className = 'font-extrabold';
+    heading.textContent = item.title;
+    const body = document.createElement('p');
+    body.className = 'text-sm text-slate-500 leading-7 mt-2';
+    body.textContent = item.description || '';
+    const date = document.createElement('p');
+    date.className = 'text-xs text-slate-400 mt-3';
+    date.textContent = item.achievement_date || '';
+    card.append(heading, body, date);
+    container.appendChild(card);
+  });
+}
+
+async function renderIssues() {
+  const body = document.getElementById('issues-list-body');
+  const empty = document.getElementById('empty-issues');
+  body.innerHTML = '';
+  const { data, error } = await supabaseClient
+    .from('hall_needs')
+    .select('id, item_name, description, status')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Supabase hall needs:', error);
+    empty.classList.remove('hidden');
+    empty.querySelector('p').textContent = 'تعذر تحميل احتياجات القاعات حالياً.';
+    return;
+  }
+  if (!data || !data.length) {
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+  const statusLabels = {
+    pending: 'قيد الانتظار',
+    in_progress: 'قيد التنفيذ',
+    completed: 'مكتمل'
+  };
+  data.forEach(item => {
+    const tr = document.createElement('tr');
+    [item.item_name || '', item.description || '', statusLabels[item.status] || item.status || ''].forEach(value => {
+      const td = document.createElement('td');
+      td.className = 'p-4 text-slate-600';
+      td.textContent = value;
+      tr.appendChild(td);
+    });
+    body.appendChild(tr);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await Promise.all([
+    updateFinance(),
+    renderTransactions(),
+    renderAnnouncements(),
+    renderAchievements(),
+    renderIssues()
+  ]);
 });
+
 </script>
 
 </body>
