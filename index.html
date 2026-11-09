@@ -189,12 +189,12 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            // تحديث الأرقام المالية الجديدة (317 ألف إجمالي، 225 ألف مصروف، 92 ألف رصيد)
+            // تثبيت المبالغ الجديدة مباشرة
             const fixedIncome = 317000;
             const fixedExpenses = 225000;
-            const fixedBalance = fixedIncome - fixedExpenses;
+            const fixedBalance = fixedIncome - fixedExpenses; // 92,000
 
-            // حفظ القيمة في localStorage
+            // حفظ القيمة في localStorage وتحديثها قسرياً
             localStorage.setItem('elite_income_raw', fixedIncome);
             localStorage.setItem('elite_expenses_raw', fixedExpenses);
             localStorage.setItem('elite_income', fixedIncome.toLocaleString() + ' ج.س');
@@ -210,7 +210,6 @@
             const issues = JSON.parse(localStorage.getItem('elite_issues')) || [];
             const tableBody = document.getElementById('issues-list-body');
 
-            // إذا لم تكن هناك بنود مضافة، نعرض البنود الأساسية الافتراضية
             if (issues.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
@@ -229,7 +228,7 @@
                     </tr>
                 `;
             } else {
-                tableBody.innerHTML = ""; // تفريغ الجدول الافتراضي
+                tableBody.innerHTML = "";
                 issues.forEach(item => {
                     const statusClass = item.status === 'تم الإنجاز' 
                         ? 'bg-emerald-100 text-emerald-800' 
