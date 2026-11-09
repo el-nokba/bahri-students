@@ -14,7 +14,7 @@
 *{box-sizing:border-box}
 body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
 :root{--navy:#101d36;--blue:#233e68;--gold:#d8b56b;--green:#15966b}
-.hero{background:radial-gradient(circle at 15% 20%,rgba(216,181,107,.17),transparent 30%),linear-gradient(120deg,#101d36,#1c3155 65%,#14213b);position:relative;overflow:hidden}
+.hero{background:radial-gradient(circle at 15% 20%,rgba(216,181,107,.17),transparent 30%),linear-gradient(120deg,#101d36,#1c3155 65%,#14213b);overflow:hidden}
 .glass{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
 .card{background:white;border:1px solid #e9edf3;border-radius:20px;transition:.2s}
 .card:hover{box-shadow:0 10px 25px rgba(20,35,60,.07)}
@@ -29,17 +29,20 @@ body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
 .faq-question{width:100%;text-align:right;padding:16px 0;font-weight:800;display:flex;justify-content:space-between;gap:12px}
 .faq-answer{display:none;color:#64748b;font-size:13px;line-height:2;padding:0 0 16px}
 .faq-item.open .faq-answer{display:block}
-@media(max-width:640px){
- .hero h1{font-size:27px}
- .hero{border-radius:0 0 28px 28px}
-}
+.chart-bar{height:12px;border-radius:20px;background:#edf1f6;overflow:hidden}
+.chart-bar span{display:block;height:100%;border-radius:20px}
+.milestone{position:relative;padding-right:25px}
+.milestone:before{content:"";position:absolute;right:5px;top:5px;width:11px;height:11px;border-radius:50%;background:#d9e0e9;border:2px solid white;box-shadow:0 0 0 1px #cbd5e1}
+.milestone.done:before{background:#15966b;box-shadow:0 0 0 1px #15966b}
+.milestone.current:before{background:#d8b56b;box-shadow:0 0 0 2px #d8b56b}
+.milestone:not(:last-child):after{content:"";position:absolute;right:10px;top:18px;height:calc(100% + 4px);width:1px;background:#e2e8f0}
+.status-pill{font-size:11px;padding:5px 10px;border-radius:30px;background:#f1f5f9;color:#64748b}
+@media(max-width:640px){.hero h1{font-size:27px}.hero{border-radius:0 0 28px 28px}}
 @media print{
- .no-print,#notice-modal,header nav,.action-card,footer{display:none!important}
- body{background:#fff}
- .card{break-inside:avoid;box-shadow:none!important}
- main{max-width:100%!important;padding:0!important}
- .hero{background:#fff!important;color:#111!important}
- .hero p,.hero span{color:#333!important}
+.no-print,#notice-modal,header nav,.action-card,footer{display:none!important}
+body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
+.hero{background:#fff!important;color:#111!important}
+.hero p,.hero span{color:#333!important}
 }
 </style>
 </head>
@@ -53,7 +56,7 @@ body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
    <i class="fa-solid fa-vault text-4xl" style="color:#d8b56b"></i>
   </div>
   <h2 class="text-2xl font-black mb-3">أهلاً بكم في خزينة النخبة</h2>
-  <p class="text-slate-500 text-sm leading-7 mb-6">منصة التكافل المالي والشفافية، نعمل معاً لخدمة الدفعة وتلبية احتياجاتها بأمانة ومسؤولية.</p>
+  <p class="text-slate-500 text-sm leading-7 mb-6">منصة التكافل المالي والشفافية، نعمل معاً لخدمة الدفعة وتلبية احتياجات القاعات.</p>
   <button onclick="closeNoticeModal()" class="w-full py-3.5 rounded-xl text-white font-bold" style="background:#172a4a">
    الدخول إلى الخزنة <i class="fa-solid fa-arrow-left mr-2"></i>
   </button>
@@ -76,10 +79,9 @@ body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
 
    <div class="hidden md:flex items-center gap-5 text-sm text-blue-100">
     <a href="#finance">الموقف المالي</a>
-    <a href="#transactions">العمليات</a>
-    <a href="#goals">الهدف المالي</a>
+    <a href="#goals">الهدف</a>
+    <a href="#announcements">الإعلانات</a>
     <a href="#services">الخدمات</a>
-    <a href="#issues">الاحتياجات</a>
     <a href="#faq">الأسئلة الشائعة</a>
    </div>
 
@@ -93,21 +95,18 @@ body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
     <i class="fa-solid fa-shield-halved" style="color:#d8b56b"></i>
     الأمانة · التكافل · الشفافية
    </div>
-
    <h1 class="text-3xl md:text-5xl font-black leading-relaxed">
     معاً نصنع الفرق، <span style="color:#e4c47e">وبالتكافل نقوى</span>
    </h1>
-
    <p class="text-blue-100 text-sm md:text-base mt-3 max-w-2xl leading-8">
     مساحة مالية لخدمة الدفعة، وتنظيم المساهمات والمصروفات، ومتابعة احتياجات القاعات والمشاريع.
    </p>
-
    <div class="flex flex-wrap gap-3 mt-7 no-print">
     <a href="#finance" class="inline-flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-sm" style="background:#d8b56b;color:#17233b">
      استكشف الموقف المالي <i class="fa-solid fa-arrow-down"></i>
     </a>
     <button onclick="printReport()" class="glass px-5 py-3 rounded-xl text-sm font-bold">
-     <i class="fa-solid fa-print ml-2"></i>طباعة التقرير
+     <i class="fa-solid fa-print ml-2"></i>طباعة الصفحة
     </button>
    </div>
   </div>
@@ -116,33 +115,25 @@ body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
 
 <main class="max-w-6xl mx-auto px-5 py-9 space-y-10">
 
-<!-- 1: الموقف المالي -->
+<!-- 1 الموقف المالي -->
 <section id="finance">
  <div class="flex items-center justify-between flex-wrap gap-3 mb-5">
   <div>
-   <div class="flex items-center gap-2 mb-1">
-    <div class="gold-line"></div>
-    <span class="section-kicker">التقارير المالية</span>
-   </div>
+   <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">التقارير المالية</span></div>
    <h2 class="text-2xl font-black">الموقف المالي العام</h2>
   </div>
-
   <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-4 py-2 rounded-full">
    <i class="fa-solid fa-circle-check ml-1"></i> آخر أرقام معتمدة لدينا
   </span>
  </div>
 
- <div class="rounded-3xl p-6 md:p-9 text-white relative overflow-hidden" style="background:linear-gradient(120deg,#142440,#233e68)">
-  <div class="relative z-10 flex flex-col md:flex-row justify-between gap-6">
+ <div class="rounded-3xl p-6 md:p-9 text-white" style="background:linear-gradient(120deg,#142440,#233e68)">
+  <div class="flex flex-col md:flex-row justify-between gap-6">
    <div>
-    <p class="text-blue-200 text-sm font-semibold">
-     <i class="fa-solid fa-wallet ml-2" style="color:#d8b56b"></i>
-     الرصيد المالي المتاح حالياً
-    </p>
+    <p class="text-blue-200 text-sm font-semibold"><i class="fa-solid fa-wallet ml-2" style="color:#d8b56b"></i>الرصيد المالي المتاح حالياً</p>
     <h2 id="current-balance" class="text-4xl md:text-5xl font-black mt-4" style="color:#f1d28f">92,000</h2>
     <p class="text-blue-200 text-xs mt-3">جنيه سوداني</p>
    </div>
-
    <div class="glass rounded-2xl p-4 self-start">
     <i class="fa-solid fa-chart-line text-3xl" style="color:#d8b56b"></i>
     <p class="text-xs text-blue-100 mt-2">الرصيد المحسوب</p>
@@ -153,377 +144,306 @@ body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
 
  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
   <div class="card p-5 flex items-center justify-between">
-   <div>
-    <p class="text-xs text-slate-400 font-bold">إجمالي المبالغ المجمعة</p>
-    <h3 id="total-income" class="text-2xl font-black text-emerald-600 mt-3">317,000</h3>
-    <p class="text-xs text-slate-400 mt-2">جنيه سوداني</p>
-   </div>
-   <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl">
-    <i class="fa-solid fa-arrow-trend-up"></i>
-   </div>
+   <div><p class="text-xs text-slate-400 font-bold">إجمالي المبالغ المجمعة</p><h3 id="total-income" class="text-2xl font-black text-emerald-600 mt-3">317,000</h3><p class="text-xs text-slate-400 mt-2">جنيه سوداني</p></div>
+   <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl"><i class="fa-solid fa-arrow-trend-up"></i></div>
   </div>
-
   <div class="card p-5 flex items-center justify-between">
-   <div>
-    <p class="text-xs text-slate-400 font-bold">إجمالي المصروفات</p>
-    <h3 id="total-expenses" class="text-2xl font-black text-rose-600 mt-3">225,000</h3>
-    <p class="text-xs text-slate-400 mt-2">جنيه سوداني</p>
-   </div>
-   <div class="w-14 h-14 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-2xl">
-    <i class="fa-solid fa-arrow-trend-down"></i>
-   </div>
+   <div><p class="text-xs text-slate-400 font-bold">إجمالي المصروفات</p><h3 id="total-expenses" class="text-2xl font-black text-rose-600 mt-3">225,000</h3><p class="text-xs text-slate-400 mt-2">جنيه سوداني</p></div>
+   <div class="w-14 h-14 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-2xl"><i class="fa-solid fa-arrow-trend-down"></i></div>
   </div>
  </div>
 
  <div class="card p-6 mt-4">
   <div class="flex items-center justify-between mb-4">
-   <h3 class="font-extrabold text-sm">
-    <i class="fa-solid fa-chart-pie text-amber-600 ml-2"></i>
-    توزيع المبالغ المالية
-   </h3>
+   <h3 class="font-extrabold text-sm"><i class="fa-solid fa-chart-pie text-amber-600 ml-2"></i>توزيع المبالغ المالية</h3>
    <span class="text-xs text-slate-400">من إجمالي المجمع</span>
   </div>
-
-  <div class="progress-track">
-   <div id="expense-progress" class="progress-fill" style="width:71%"></div>
-  </div>
-
+  <div class="progress-track"><div id="expense-progress" class="progress-fill" style="width:71%"></div></div>
   <div class="grid grid-cols-2 gap-4 mt-4">
-   <div>
-    <span class="text-xs text-slate-400">نسبة المصروفات</span>
-    <p id="expense-percent" class="font-black text-rose-600 text-lg">71%</p>
-   </div>
-   <div class="text-left">
-    <span class="text-xs text-slate-400">نسبة المتبقي</span>
-    <p id="balance-percent" class="font-black text-emerald-600 text-lg">29%</p>
-   </div>
+   <div><span class="text-xs text-slate-400">نسبة المصروفات</span><p id="expense-percent" class="font-black text-rose-600 text-lg">71%</p></div>
+   <div class="text-left"><span class="text-xs text-slate-400">نسبة المتبقي</span><p id="balance-percent" class="font-black text-emerald-600 text-lg">29%</p></div>
   </div>
+ </div>
+
+ <div class="card p-5 mt-4 flex flex-wrap items-center justify-between gap-3">
+  <div class="flex items-center gap-3">
+   <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center"><i class="fa-regular fa-clock"></i></div>
+   <div><p class="font-bold text-sm">آخر تحديث للبيانات المالية</p><p class="text-xs text-slate-400 mt-1">تاريخ آخر تعديل معتمد من الإدارة</p></div>
+  </div>
+  <span id="last-update" class="text-sm font-bold text-slate-500">غير مسجل حالياً</span>
  </div>
 
  <p class="text-xs text-slate-400 mt-3 leading-6">
   <i class="fa-solid fa-circle-info ml-1"></i>
-  الأرقام المعروضة هي آخر أرقام معتمدة زُوّدت بها المنصة، وقد لا تمثل تحديثاً لحظياً. الرصيد محسوب من إجمالي الوارد مطروحاً منه إجمالي المصروفات.
+  الأرقام المعروضة هي آخر أرقام معتمدة زُوّدت بها المنصة، وقد لا تمثل تحديثاً لحظياً.
  </p>
 </section>
 
-<!-- 2: آخر العمليات -->
-<section id="transactions">
- <div class="flex items-center justify-between flex-wrap gap-3 mb-5">
-  <div>
-   <div class="flex items-center gap-2 mb-1">
-    <div class="gold-line"></div>
-    <span class="section-kicker">الحركة المالية</span>
-   </div>
-   <h2 class="text-2xl font-black">آخر العمليات المالية</h2>
-   <p class="text-sm text-slate-500 mt-1">عرض واضح للوارد والمنصرف المسجلين.</p>
-  </div>
-  <span class="text-xs bg-slate-100 text-slate-500 rounded-full px-4 py-2">سجل العمليات</span>
- </div>
+<!-- 2 الرسم البياني -->
+<section id="chart">
+ <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">قراءة بصرية للأرقام</span></div>
+ <h2 class="text-2xl font-black mb-4">الرسم البياني للحركة المالية</h2>
 
- <div id="transactions-list" class="card p-5">
-  <div class="empty-state">
-   <i class="fa-solid fa-receipt text-2xl mb-3"></i>
-   <p class="font-bold text-slate-600">لا توجد عمليات تفصيلية منشورة حالياً</p>
-   <p class="text-xs mt-2">سيظهر هنا تاريخ العملية ووصفها ومبلغها بعد إدخال سجل موثق.</p>
+ <div class="card p-6">
+  <div class="flex flex-wrap justify-between gap-3 mb-6">
+   <div><h3 class="font-extrabold">ملخص الوضع المالي</h3><p class="text-xs text-slate-400 mt-1">مقارنة الوارد والمنصرف والرصيد الحالي</p></div>
+   <span class="status-pill">الإجمالي التراكمي</span>
   </div>
+
+  <div class="space-y-6">
+   <div>
+    <div class="flex justify-between text-sm mb-2"><span class="font-bold">إجمالي الوارد</span><strong id="chart-income-label" class="text-emerald-700">317,000 ج.س</strong></div>
+    <div class="chart-bar"><span id="chart-income-bar" style="width:100%;background:#15966b"></span></div>
+   </div>
+   <div>
+    <div class="flex justify-between text-sm mb-2"><span class="font-bold">إجمالي المصروفات</span><strong id="chart-expenses-label" class="text-rose-600">225,000 ج.س</strong></div>
+    <div class="chart-bar"><span id="chart-expenses-bar" style="width:71%;background:#e87979"></span></div>
+   </div>
+   <div>
+    <div class="flex justify-between text-sm mb-2"><span class="font-bold">الرصيد المتبقي</span><strong id="chart-balance-label" class="text-blue-700">92,000 ج.س</strong></div>
+    <div class="chart-bar"><span id="chart-balance-bar" style="width:29%;background:#5277b8"></span></div>
+   </div>
+  </div>
+  <p class="text-xs text-slate-400 mt-5">الرسم يوضح الإجماليات المتاحة حالياً، وليس حركة شهرية؛ ستتم إضافة المقارنة الشهرية بعد توفير بيانات الأشهر السابقة.</p>
  </div>
 </section>
 
-<!-- 3: هدف الخزنة -->
-<section id="goals">
- <div class="flex items-center gap-2 mb-1">
-  <div class="gold-line"></div>
-  <span class="section-kicker">التخطيط المالي</span>
+<!-- 3 آخر العمليات -->
+<section id="transactions">
+ <div class="flex items-center justify-between flex-wrap gap-3 mb-5">
+  <div><div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">الحركة المالية</span></div><h2 class="text-2xl font-black">آخر العمليات المالية</h2><p class="text-sm text-slate-500 mt-1">عرض واضح للوارد والمنصرف المسجلين.</p></div>
+  <span class="text-xs bg-slate-100 text-slate-500 rounded-full px-4 py-2">سجل العمليات</span>
  </div>
- <h2 class="text-2xl font-black mb-4">هدف الخزنة ونسبة الإنجاز</h2>
+ <div id="transactions-list" class="card p-5">
+  <div class="empty-state"><i class="fa-solid fa-receipt text-2xl mb-3"></i><p class="font-bold text-slate-600">لا توجد عمليات تفصيلية منشورة حالياً</p><p class="text-xs mt-2">ستظهر هنا تفاصيل العمليات بعد إدخال سجل موثق.</p></div>
+ </div>
+</section>
+
+<!-- 4 هدف الخزنة ومراحله -->
+<section id="goals">
+ <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">التخطيط المالي</span></div>
+ <h2 class="text-2xl font-black mb-4">هدف الخزنة ومراحل الإنجاز</h2>
 
  <div class="card p-6">
   <div class="flex flex-col md:flex-row items-start gap-5">
-   <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl shrink-0">
-    <i class="fa-solid fa-bullseye"></i>
-   </div>
-
+   <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl shrink-0"><i class="fa-solid fa-bullseye"></i></div>
    <div class="flex-1 w-full">
     <div class="flex flex-wrap justify-between items-center gap-3">
-     <div>
-      <h3 class="font-extrabold text-lg">هدفنا الوصول إلى 3 مليون جنيه</h3>
-      <p class="text-sm text-slate-500 mt-1">معاً نقترب من تحقيق هدف الخزنة.</p>
-     </div>
-     <div class="text-left">
-      <p class="text-xs text-slate-400">الهدف المالي</p>
-      <p class="font-black text-xl text-slate-800">3,000,000 ج.س</p>
-     </div>
+     <div><h3 class="font-extrabold text-lg">هدفنا الوصول إلى 3 مليون جنيه</h3><p class="text-sm text-slate-500 mt-1">كل مساهمة تقربنا من تحقيق الهدف.</p></div>
+     <div class="text-left"><p class="text-xs text-slate-400">الهدف المالي</p><p class="font-black text-xl">3,000,000 ج.س</p></div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
-     <div class="bg-emerald-50 rounded-xl p-4">
-      <p class="text-xs text-emerald-700 font-bold">المبلغ المحقق</p>
-      <p id="goal-achieved" class="text-xl font-black text-emerald-700 mt-2">317,000 ج.س</p>
+     <div class="bg-emerald-50 rounded-xl p-4"><p class="text-xs text-emerald-700 font-bold">المبلغ المحقق</p><p id="goal-achieved" class="text-xl font-black text-emerald-700 mt-2">317,000 ج.س</p></div>
+     <div class="bg-amber-50 rounded-xl p-4"><p class="text-xs text-amber-700 font-bold">المبلغ المتبقي</p><p id="goal-remaining" class="text-xl font-black text-amber-700 mt-2">2,683,000 ج.س</p></div>
+    </div>
+
+    <div class="flex justify-between items-center mt-5 mb-2"><span class="text-sm font-bold">نسبة تحقيق الهدف</span><span id="goal-percent" class="text-lg font-black text-amber-700">10.57%</span></div>
+    <div class="progress-track" style="height:14px"><div id="goal-progress" class="progress-fill" style="width:10.57%"></div></div>
+
+    <div class="mt-7">
+     <h4 class="font-extrabold text-sm mb-5">محطات الوصول إلى الهدف</h4>
+     <div id="milestones" class="space-y-5">
+      <div class="milestone current"><p class="font-bold text-sm">500,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الأولى</p></div>
+      <div class="milestone"><p class="font-bold text-sm">1,000,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الثانية</p></div>
+      <div class="milestone"><p class="font-bold text-sm">1,500,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الثالثة</p></div>
+      <div class="milestone"><p class="font-bold text-sm">2,000,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الرابعة</p></div>
+      <div class="milestone"><p class="font-bold text-sm">3,000,000 جنيه</p><p class="text-xs text-slate-400 mt-1">تحقيق الهدف النهائي</p></div>
      </div>
-
-     <div class="bg-amber-50 rounded-xl p-4">
-      <p class="text-xs text-amber-700 font-bold">المبلغ المتبقي</p>
-      <p id="goal-remaining" class="text-xl font-black text-amber-700 mt-2">2,683,000 ج.س</p>
-     </div>
     </div>
-
-    <div class="flex justify-between items-center mt-5 mb-2">
-     <span class="text-sm font-bold">نسبة تحقيق الهدف</span>
-     <span id="goal-percent" class="text-lg font-black text-amber-700">10.57%</span>
-    </div>
-
-    <div class="progress-track" style="height:14px">
-     <div id="goal-progress" class="progress-fill" style="width:10.57%"></div>
-    </div>
-
-    <div class="flex justify-between text-xs text-slate-400 mt-2">
-     <span>بداية الهدف</span>
-     <span>3,000,000 ج.س</span>
-    </div>
-
-    <p class="text-xs text-slate-500 leading-6 mt-4">
-     كل مساهمة تقربنا خطوة من الهدف. شكراً لكل من ساهم وساند الخزنة.
-    </p>
    </div>
   </div>
  </div>
 </section>
 
-<!-- 4: أثر المساهمات -->
+<!-- 5 أثر المساهمات -->
 <section id="impact">
- <div class="flex items-center gap-2 mb-1">
-  <div class="gold-line"></div>
-  <span class="section-kicker">أثر التكافل</span>
- </div>
+ <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">أثر التكافل</span></div>
  <h2 class="text-2xl font-black mb-4">أثر مساهمات الطلاب</h2>
-
  <div class="card p-6">
   <div class="flex flex-col sm:flex-row gap-4 items-start">
-   <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0">
-    <i class="fa-solid fa-hands-holding-circle"></i>
-   </div>
-
+   <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-hands-holding-circle"></i></div>
    <div class="flex-1 w-full">
     <h3 class="font-extrabold">كل مساهمة تصنع فرقاً</h3>
-    <p class="text-sm text-slate-500 leading-7 mt-2">
-     تُستخدم مساهمات الدفعة في دعم احتياجاتها وفق ما تعتمده الإدارة. لا نعرض أسماء المستفيدين أو أي تفاصيل شخصية حفاظاً على الخصوصية.
-    </p>
-
+    <p class="text-sm text-slate-500 leading-7 mt-2">تُستخدم مساهمات الدفعة في دعم احتياجاتها وفق ما تعتمده الإدارة، مع الحفاظ على خصوصية الطلاب.</p>
     <div class="grid grid-cols-2 gap-3 mt-4">
-     <div class="bg-slate-50 rounded-xl p-4">
-      <p class="text-xs text-slate-400">عدد المساهمات</p>
-      <p id="contribution-count" class="font-black text-2xl text-emerald-700 mt-1">235</p>
-     </div>
-
-     <div class="bg-slate-50 rounded-xl p-4">
-      <p class="text-xs text-slate-400">عدد المبادرات المنفذة</p>
-      <p class="font-black mt-1">غير متاح</p>
-     </div>
+     <div class="bg-slate-50 rounded-xl p-4"><p class="text-xs text-slate-400">عدد المساهمات</p><p id="contribution-count" class="font-black text-2xl text-emerald-700 mt-1">235</p></div>
+     <div class="bg-slate-50 rounded-xl p-4"><p class="text-xs text-slate-400">عدد المبادرات المنفذة</p><p class="font-black mt-1">غير متاح</p></div>
     </div>
-
-    <p class="text-xs text-slate-400 mt-3">عدد المساهمات المعتمد حالياً: 235 مساهمة.</p>
    </div>
   </div>
  </div>
 </section>
 
-<!-- 5: الخدمات -->
-<section id="services">
- <div class="mb-5">
-  <div class="flex items-center gap-2 mb-1">
-   <div class="gold-line"></div>
-   <span class="section-kicker">خدمات الخزنة</span>
-  </div>
-  <h2 class="text-2xl font-black">كيف يمكننا مساعدتك؟</h2>
-  <p class="text-sm text-slate-500 mt-2">اختر الخدمة المناسبة للوصول إليها مباشرة.</p>
+<!-- 6 الإعلانات -->
+<section id="announcements">
+ <div class="flex items-center justify-between flex-wrap gap-3 mb-5">
+  <div><div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">تابع جديد الخزنة</span></div><h2 class="text-2xl font-black">الإعلانات والتنويهات</h2></div>
+  <span class="status-pill">إعلانات الإدارة</span>
  </div>
+ <div id="announcements-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="card p-5">
+   <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center"><i class="fa-solid fa-bullhorn"></i></div><span class="text-xs text-slate-400">مساحة الإعلانات</span></div>
+   <h3 class="font-extrabold">لا توجد إعلانات جديدة حالياً</h3>
+   <p class="text-sm text-slate-500 leading-7 mt-2">ستظهر هنا التنويهات والإعلانات المعتمدة من إدارة الخزنة.</p>
+  </div>
+ </div>
+</section>
 
+<!-- 7 سجل الإنجازات -->
+<section id="achievements">
+ <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">ما تحقق على أرض الواقع</span></div>
+ <h2 class="text-2xl font-black mb-4">سجل إنجازات الخزنة</h2>
+ <div id="achievements-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="card p-6">
+   <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-trophy"></i></div>
+   <h3 class="font-extrabold">مساحة إنجازات الخزنة</h3>
+   <p class="text-sm text-slate-500 leading-7 mt-2">ستُوثق هنا الإنجازات التي تم تنفيذها فعلياً، مع تاريخ الإنجاز والتفاصيل المعتمدة.</p>
+   <span class="status-pill inline-block mt-3">بانتظار إضافة إنجازات موثقة</span>
+  </div>
+ </div>
+</section>
+
+<!-- 8 الخدمات -->
+<section id="services">
+ <div class="mb-5"><div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">خدمات الخزنة</span></div><h2 class="text-2xl font-black">كيف يمكننا مساعدتك؟</h2><p class="text-sm text-slate-500 mt-2">اختر الخدمة المناسبة للوصول إليها مباشرة.</p></div>
  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
   <a href="payment.html" class="action-card" style="background:linear-gradient(135deg,#087b5a,#15966b)">
-   <div class="flex justify-between items-center mb-7">
-    <div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-xl">
-     <i class="fa-solid fa-credit-card"></i>
-    </div>
-    <i class="fa-solid fa-arrow-left opacity-70"></i>
-   </div>
-   <h3 class="text-xl font-extrabold">طرق الدفع والمساهمة</h3>
-   <p class="text-xs text-white/80 leading-7 mt-2">تعرف على وسائل التحويل والمساهمة في دعم الخزنة.</p>
+   <div class="flex justify-between items-center mb-7"><div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-xl"><i class="fa-solid fa-credit-card"></i></div><i class="fa-solid fa-arrow-left opacity-70"></i></div>
+   <h3 class="text-xl font-extrabold">طرق الدفع والمساهمة</h3><p class="text-xs text-white/80 leading-7 mt-2">تعرف على وسائل التحويل والمساهمة في دعم الخزنة.</p>
   </a>
-
   <a href="student-portal.html?type=support" class="action-card" style="background:linear-gradient(135deg,#344f87,#233e68)">
-   <div class="flex justify-between items-center mb-7">
-    <div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-xl">
-     <i class="fa-solid fa-hand-holding-heart"></i>
-    </div>
-    <i class="fa-solid fa-arrow-left opacity-70"></i>
-   </div>
-   <h3 class="text-xl font-extrabold">طلب دعم ومساعدة</h3>
-   <p class="text-xs text-white/80 leading-7 mt-2">تقديم طلب مساعدة مع مراعاة خصوصية الطالب.</p>
+   <div class="flex justify-between items-center mb-7"><div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-xl"><i class="fa-solid fa-hand-holding-heart"></i></div><i class="fa-solid fa-arrow-left opacity-70"></i></div>
+   <h3 class="text-xl font-extrabold">طلب دعم ومساعدة</h3><p class="text-xs text-white/80 leading-7 mt-2">تقديم طلب مساعدة مع مراعاة خصوصية الطالب.</p>
   </a>
-
   <a href="student-portal.html?type=issue" class="action-card" style="background:linear-gradient(135deg,#384253,#172234)">
-   <div class="flex justify-between items-center mb-7">
-    <div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-xl">
-     <i class="fa-solid fa-screwdriver-wrench"></i>
-    </div>
-    <i class="fa-solid fa-arrow-left opacity-70"></i>
-   </div>
-   <h3 class="text-xl font-extrabold">الإبلاغ عن نواقص القاعات</h3>
-   <p class="text-xs text-white/80 leading-7 mt-2">ساهم في تحديد احتياجات القاعات والمستلزمات.</p>
+   <div class="flex justify-between items-center mb-7"><div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-xl"><i class="fa-solid fa-screwdriver-wrench"></i></div><i class="fa-solid fa-arrow-left opacity-70"></i></div>
+   <h3 class="text-xl font-extrabold">الإبلاغ عن نواقص القاعات</h3><p class="text-xs text-white/80 leading-7 mt-2">ساهم في تحديد احتياجات القاعات والمستلزمات.</p>
   </a>
  </div>
 </section>
 
-<!-- 6: سجل الاحتياجات -->
+<!-- 9 متابعة الطلبات -->
+<section id="requests">
+ <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">متابعة الخدمات</span></div>
+ <h2 class="text-2xl font-black mb-4">حالة الطلبات والبلاغات</h2>
+ <div class="card p-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+   <div class="rounded-xl bg-slate-50 p-5">
+    <div class="flex items-center justify-between"><span class="text-sm font-bold">طلبات الدعم</span><i class="fa-solid fa-hand-holding-heart text-blue-600"></i></div>
+    <p class="text-2xl font-black mt-3">—</p><span class="text-xs text-slate-400">بانتظار الربط بقاعدة البيانات</span>
+   </div>
+   <div class="rounded-xl bg-slate-50 p-5">
+    <div class="flex items-center justify-between"><span class="text-sm font-bold">بلاغات نواقص القاعات</span><i class="fa-solid fa-screwdriver-wrench text-amber-600"></i></div>
+    <p class="text-2xl font-black mt-3">—</p><span class="text-xs text-slate-400">بانتظار الربط بقاعدة البيانات</span>
+   </div>
+  </div>
+  <p class="text-xs text-slate-400 mt-4 leading-6">سيتم عرض أعداد الطلبات وحالاتها بعد ربط الموقع بقاعدة البيانات. لن تظهر تفاصيل أصحاب الطلبات للزوار.</p>
+ </div>
+</section>
+
+<!-- 10 الاحتياجات -->
 <section id="issues">
  <div class="flex items-center justify-between flex-wrap gap-3 mb-5">
-  <div>
-   <div class="flex items-center gap-2 mb-1">
-    <div class="gold-line"></div>
-    <span class="section-kicker">المتابعة والتنفيذ</span>
-   </div>
-   <h2 class="text-2xl font-black">احتياجات القاعات والمشاريع</h2>
-  </div>
+  <div><div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">المتابعة والتنفيذ</span></div><h2 class="text-2xl font-black">احتياجات القاعات والمشاريع</h2></div>
   <span class="text-xs text-slate-500 bg-white border border-slate-200 rounded-full px-4 py-2">سجل المتابعة</span>
  </div>
-
  <div class="card overflow-hidden">
   <div class="overflow-x-auto">
    <table class="w-full text-right text-sm">
-    <thead>
-     <tr class="bg-slate-50 text-slate-500">
-      <th class="p-4">البند / القاعة</th>
-      <th class="p-4">التفاصيل</th>
-      <th class="p-4">الحالة</th>
-     </tr>
-    </thead>
+    <thead><tr class="bg-slate-50 text-slate-500"><th class="p-4">البند / القاعة</th><th class="p-4">التفاصيل</th><th class="p-4">الحالة</th></tr></thead>
     <tbody id="issues-list-body" class="divide-y divide-slate-100"></tbody>
    </table>
   </div>
+  <div id="empty-issues" class="hidden text-center py-10"><i class="fa-solid fa-clipboard-check text-4xl text-slate-300"></i><p class="font-bold text-slate-600 mt-3">لا توجد بنود مسجلة حالياً</p><p class="text-xs text-slate-400 mt-1">ستظهر الاحتياجات الجديدة هنا عند إضافتها.</p></div>
+ </div>
+</section>
 
-  <div id="empty-issues" class="hidden text-center py-10">
-   <i class="fa-solid fa-clipboard-check text-4xl text-slate-300"></i>
-   <p class="font-bold text-slate-600 mt-3">لا توجد بنود مسجلة حالياً</p>
-   <p class="text-xs text-slate-400 mt-1">ستظهر الاحتياجات الجديدة هنا عند إضافتها.</p>
+<!-- 11 صندوق الاقتراحات -->
+<section id="suggestions">
+ <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">رأيك يهمنا</span></div>
+ <h2 class="text-2xl font-black mb-4">صندوق الاقتراحات والشكاوى</h2>
+ <div class="card p-6">
+  <div class="flex items-start gap-4">
+   <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl shrink-0"><i class="fa-regular fa-lightbulb"></i></div>
+   <div>
+    <h3 class="font-extrabold">ساهم في تطوير عمل الخزنة</h3>
+    <p class="text-sm text-slate-500 leading-7 mt-2">نرحب بمقترحاتكم وملاحظاتكم التي تساعد على تحسين الخدمات وتنظيم العمل المالي.</p>
+   </div>
+  </div>
+  <div class="mt-5 rounded-xl bg-amber-50 border border-amber-100 p-4">
+   <p class="text-sm font-bold text-amber-800"><i class="fa-solid fa-circle-info ml-2"></i>سيتم تفعيل استقبال الاقتراحات بعد ربط قاعدة البيانات.</p>
+   <p class="text-xs text-amber-700 mt-2 leading-6">لن نعرض نموذجاً يوهمك بأن رسالتك وصلت للإدارة قبل تفعيل الإرسال والحفظ المشترك.</p>
   </div>
  </div>
 </section>
 
-<!-- 7: الإيصالات -->
-<section id="receipts">
- <div class="flex items-center gap-2 mb-1">
-  <div class="gold-line"></div>
-  <span class="section-kicker">المستندات والإثباتات</span>
- </div>
- <h2 class="text-2xl font-black mb-4">الإيصالات والمستندات المالية</h2>
-
- <div id="receipts-list" class="card p-5">
+<!-- 12 أرشيف الأشهر -->
+<section id="archive">
+ <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">الرجوع للبيانات السابقة</span></div>
+ <h2 class="text-2xl font-black mb-4">أرشيف الأشهر السابقة</h2>
+ <div id="archive-list" class="card p-6">
   <div class="empty-state">
-   <i class="fa-solid fa-file-circle-check text-2xl mb-3"></i>
-   <p class="font-bold text-slate-600">لا توجد إيصالات أو مستندات منشورة حالياً</p>
-   <p class="text-xs mt-2">ستُعرض المستندات المعتمدة هنا بعد رفعها، مع إخفاء أي بيانات شخصية أو حساسة.</p>
+   <i class="fa-solid fa-box-archive text-2xl mb-3"></i>
+   <p class="font-bold text-slate-600">الأرشيف جاهز لاستقبال البيانات</p>
+   <p class="text-xs mt-2">ستظهر هنا الأشهر السابقة وأرصدتها بعد حفظ البيانات الشهرية في قاعدة البيانات.</p>
   </div>
  </div>
 </section>
 
-<!-- 8: التواصل -->
+<!-- 13 الإيصالات -->
+<section id="receipts">
+ <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">المستندات والإثباتات</span></div>
+ <h2 class="text-2xl font-black mb-4">الإيصالات والمستندات المالية</h2>
+ <div id="receipts-list" class="card p-5">
+  <div class="empty-state"><i class="fa-solid fa-file-circle-check text-2xl mb-3"></i><p class="font-bold text-slate-600">لا توجد إيصالات أو مستندات منشورة حالياً</p><p class="text-xs mt-2">ستُعرض المستندات المعتمدة هنا بعد رفعها.</p></div>
+ </div>
+</section>
+
+<!-- 14 التواصل -->
 <section id="contact">
  <div class="rounded-3xl p-7 md:p-9 text-white" style="background:linear-gradient(120deg,#142440,#233e68)">
   <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-   <div>
-    <h2 class="text-2xl font-black">تواصل مع إدارة الخزنة</h2>
-    <p class="text-sm text-blue-100 leading-7 mt-2">للاستفسارات أو تقديم ملاحظة بخصوص الموقف المالي والخدمات.</p>
-   </div>
-
-   <a href="https://wa.me/249116314682" target="_blank" rel="noopener" class="no-print bg-emerald-600 hover:bg-emerald-700 px-5 py-3 rounded-xl font-bold text-sm">
-    <i class="fa-brands fa-whatsapp ml-2"></i>التواصل عبر واتساب
-   </a>
+   <div><h2 class="text-2xl font-black">تواصل مع إدارة الخزنة</h2><p class="text-sm text-blue-100 leading-7 mt-2">للاستفسارات أو تقديم ملاحظة بخصوص الموقف المالي والخدمات.</p></div>
+   <a href="https://wa.me/249116314682" target="_blank" rel="noopener" class="no-print bg-emerald-600 hover:bg-emerald-700 px-5 py-3 rounded-xl font-bold text-sm"><i class="fa-brands fa-whatsapp ml-2"></i>التواصل عبر واتساب</a>
   </div>
  </div>
 </section>
 
-<!-- 9: الأسئلة الشائعة -->
+<!-- 15 الأسئلة الشائعة -->
 <section id="faq">
- <div class="flex items-center gap-2 mb-1">
-  <div class="gold-line"></div>
-  <span class="section-kicker">معلومات مهمة</span>
- </div>
+ <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">معلومات مهمة</span></div>
  <h2 class="text-2xl font-black mb-4">الأسئلة الشائعة</h2>
-
  <div class="card px-5">
-  <div class="faq-item">
-   <button class="faq-question" onclick="toggleFaq(this)">
-    كيف أساهم في الخزنة؟
-    <i class="fa-solid fa-chevron-down text-slate-400"></i>
-   </button>
-   <div class="faq-answer">يمكنك الدخول إلى صفحة «طرق الدفع والمساهمة» لمعرفة وسائل الدفع المتاحة والتعليمات المعتمدة.</div>
-  </div>
-
-  <div class="faq-item">
-   <button class="faq-question" onclick="toggleFaq(this)">
-    كيف أطلب مساعدة مالية؟
-    <i class="fa-solid fa-chevron-down text-slate-400"></i>
-   </button>
-   <div class="faq-answer">استخدم خدمة «طلب دعم ومساعدة» من بوابة الطالب. تُرسل التفاصيل إلى الجهة المسؤولة، ولا تُنشر في الصفحة العامة.</div>
-  </div>
-
-  <div class="faq-item">
-   <button class="faq-question" onclick="toggleFaq(this)">
-    هل تظهر أسماء الطلاب المستفيدين؟
-    <i class="fa-solid fa-chevron-down text-slate-400"></i>
-   </button>
-   <div class="faq-answer">لا. يجب الحفاظ على خصوصية الطلاب وعدم نشر أسمائهم أو تفاصيل طلباتهم الشخصية.</div>
-  </div>
-
-  <div class="faq-item">
-   <button class="faq-question" onclick="toggleFaq(this)">
-    هل الأرقام تتحدث لحظياً لكل الطلاب؟
-    <i class="fa-solid fa-chevron-down text-slate-400"></i>
-   </button>
-   <div class="faq-answer">الأرقام المعروضة حالياً هي آخر أرقام معتمدة مضافة للصفحة. التحديث المشترك والفوري بين جميع الأجهزة يحتاج إلى ربط الموقع بقاعدة بيانات مشتركة.</div>
-  </div>
-
-  <div class="faq-item">
-   <button class="faq-question" onclick="toggleFaq(this)">
-    كيف أبلغ عن نقص في القاعة؟
-    <i class="fa-solid fa-chevron-down text-slate-400"></i>
-   </button>
-   <div class="faq-answer">استخدم خدمة «الإبلاغ عن نواقص القاعات» واكتب المكان ووصف النقص بوضوح.</div>
-  </div>
+  <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">كيف أساهم في الخزنة؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">يمكنك الدخول إلى صفحة طرق الدفع والمساهمة لمعرفة وسائل الدفع المتاحة والتعليمات المعتمدة.</div></div>
+  <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">كيف أطلب مساعدة مالية؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">استخدم خدمة طلب دعم ومساعدة من بوابة الطالب. تُرسل التفاصيل إلى الجهة المسؤولة.</div></div>
+  <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">هل تظهر أسماء الطلاب المستفيدين؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">لا. يجب الحفاظ على خصوصية الطلاب وعدم نشر أسمائهم أو تفاصيل طلباتهم الشخصية.</div></div>
+  <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">هل الأرقام تتحدث لحظياً لكل الطلاب؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">التحديث المشترك والفوري بين جميع الأجهزة يحتاج إلى ربط الموقع بقاعدة بيانات مشتركة.</div></div>
+  <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">كيف أبلغ عن نقص في القاعة؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">استخدم خدمة الإبلاغ عن نواقص القاعات واكتب المكان ووصف النقص بوضوح.</div></div>
  </div>
 </section>
 
 <!-- رسالة ختامية -->
 <section class="rounded-3xl p-7 md:p-9 text-center" style="background:#eaf0f8">
- <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center text-2xl mb-4" style="background:#172a4a;color:#e2c47e">
-  <i class="fa-solid fa-handshake-angle"></i>
- </div>
+ <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center text-2xl mb-4" style="background:#172a4a;color:#e2c47e"><i class="fa-solid fa-handshake-angle"></i></div>
  <h2 class="text-xl md:text-2xl font-black" style="color:#172a4a">الخزنة أمانة الجميع</h2>
- <p class="text-sm text-slate-600 leading-8 max-w-xl mx-auto mt-3">
-  كل مساهمة تصنع فرقاً، وكل مبلغ يُصرف يجب أن يخدم هدفاً. بالشفافية والتعاون نستطيع بناء بيئة جامعية أفضل للجميع.
- </p>
+ <p class="text-sm text-slate-600 leading-8 max-w-xl mx-auto mt-3">كل مساهمة تصنع فرقاً، وكل مبلغ يُصرف يجب أن يخدم هدفاً. بالشفافية والتعاون نستطيع بناء بيئة جامعية أفضل للجميع.</p>
  <div class="gold-line mx-auto mt-5"></div>
 </section>
 
 </main>
 
-<!-- التذييل -->
 <footer class="mt-10 text-white" style="background:#101d36">
  <div class="max-w-6xl mx-auto px-5 py-8 text-center">
-  <div class="flex items-center justify-center gap-2 mb-3">
-   <i class="fa-solid fa-vault text-xl" style="color:#d8b56b"></i>
-   <h3 class="font-extrabold">خزينة النخبة الشاملة</h3>
-  </div>
+  <div class="flex items-center justify-center gap-2 mb-3"><i class="fa-solid fa-vault text-xl" style="color:#d8b56b"></i><h3 class="font-extrabold">خزينة النخبة الشاملة</h3></div>
   <p class="text-xs text-blue-200 leading-7">منصة التكافل المالي وخدمة الدفعة</p>
-  <div class="border-t border-white/10 mt-6 pt-5">
-   <p class="text-xs text-slate-400">جميع الحقوق محفوظة للدفعة © 2026</p>
-  </div>
+  <div class="border-t border-white/10 mt-6 pt-5"><p class="text-xs text-slate-400">جميع الحقوق محفوظة للدفعة © 2026</p></div>
  </div>
 </footer>
 
 <script>
-const TREASURY_GOAL = 3000000;
-const CONTRIBUTION_COUNT = 235;
+const TREASURY_GOAL=3000000;
+const CONTRIBUTION_COUNT=235;
 
 function closeNoticeModal(){
  document.getElementById('notice-modal').classList.add('hidden');
@@ -556,7 +476,16 @@ function updateFinance(){
  document.getElementById('expense-percent').textContent=spent.toFixed(1)+'%';
  document.getElementById('balance-percent').textContent=remaining.toFixed(1)+'%';
 
- // تحديث هدف الخزنة
+ // الرسم البياني
+ const maxValue=Math.max(income,expenses,Math.max(0,balance),1);
+ document.getElementById('chart-income-label').textContent=formatMoney(income)+' ج.س';
+ document.getElementById('chart-expenses-label').textContent=formatMoney(expenses)+' ج.س';
+ document.getElementById('chart-balance-label').textContent=formatMoney(balance)+' ج.س';
+ document.getElementById('chart-income-bar').style.width=(income/maxValue*100)+'%';
+ document.getElementById('chart-expenses-bar').style.width=(expenses/maxValue*100)+'%';
+ document.getElementById('chart-balance-bar').style.width=(Math.max(0,balance)/maxValue*100)+'%';
+
+ // الهدف المالي
  const goalRemaining=Math.max(0,TREASURY_GOAL-income);
  const goalPercent=Math.min(100,Math.max(0,(income/TREASURY_GOAL)*100));
 
@@ -565,8 +494,23 @@ function updateFinance(){
  document.getElementById('goal-percent').textContent=goalPercent.toFixed(2)+'%';
  document.getElementById('goal-progress').style.width=goalPercent+'%';
 
- // تحديث عدد المساهمات
+ // مراحل الهدف
+ const milestones=document.querySelectorAll('#milestones .milestone');
+ const stages=[500000,1000000,1500000,2000000,3000000];
+ let nextStage=stages.findIndex(stage=>income<stage);
+ if(nextStage===-1)nextStage=stages.length;
+
+ milestones.forEach((item,index)=>{
+  item.classList.remove('done','current');
+  if(income>=stages[index])item.classList.add('done');
+  else if(index===nextStage)item.classList.add('current');
+ });
+
  document.getElementById('contribution-count').textContent=formatMoney(CONTRIBUTION_COUNT);
+
+ // تاريخ آخر تحديث إذا كانت لوحة الإدارة تحفظه
+ const lastUpdate=localStorage.getItem('elite_last_update');
+ document.getElementById('last-update').textContent=lastUpdate||'غير مسجل حالياً';
 }
 
 function renderIssues(){
@@ -576,9 +520,7 @@ function renderIssues(){
  let issues=[];
  try{
   issues=JSON.parse(localStorage.getItem('elite_issues'))||[];
- }catch(e){
-  issues=[];
- }
+ }catch(e){issues=[];}
 
  if(!issues.length){
   document.getElementById('empty-issues').classList.remove('hidden');
@@ -589,14 +531,12 @@ function renderIssues(){
 
  issues.forEach(item=>{
   const tr=document.createElement('tr');
-
   [item.location||'',item.desc||'',item.status||''].forEach(value=>{
    const td=document.createElement('td');
    td.className='p-4 text-slate-600';
    td.textContent=value;
    tr.appendChild(td);
   });
-
   body.appendChild(tr);
  });
 }
