@@ -1,14 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>خزينة النخبة الشاملة</title>
-    <!-- مكتبة Tailwind CSS للتصميم -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- خط تجوال من جوجل -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- أيقونات FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -19,37 +17,30 @@
 </head>
 <body class="text-slate-800 pb-12">
 
-    <!-- النافذة المنبثقة (التنويه الهام) -->
+    <!-- التنويه -->
     <div id="notice-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl transform transition-all">
-            <!-- أيقونة الخزنة -->
+        <div class="bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl">
             <div class="mb-4 flex justify-center">
                 <span class="text-5xl">🏛️</span>
             </div>
-            
-            <!-- العنوان -->
             <h3 class="text-2xl font-extrabold text-slate-800 mb-3">تنويه هام</h3>
-            
-            <!-- النص المعدل -->
             <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium">
-                مرحباً بكم! نود إحاطتكم بأنه جاري العمل على تطوير وتحديث الخزنة المالية للدفعة باستمرار.
+                مرحباً بكم! نود إحاطتكم بأنه جاري العمل على تطوير وتحديث الخزنة المالية باستمرار.
             </p>
-            
-            <!-- زر الإغلاق -->
-            <button onclick="closeNoticeModal()" class="w-full py-3.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/30 transition duration-200 flex items-center justify-center gap-2">
+            <button onclick="closeNoticeModal()" class="w-full py-3.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
                 <span>حسناً، الدخول للموقع</span>
                 <span>👍</span>
             </button>
         </div>
     </div>
 
-    <!-- الهيدر / الشريط العلوي -->
+    <!-- الهيدر -->
     <header class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white shadow-lg">
         <div class="max-w-5xl mx-auto px-4 py-8 text-center">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-3 backdrop-blur-sm">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-3">
                 <i class="fa-solid fa-vault text-3xl text-amber-400"></i>
             </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">خزينة النخبة الشاملة (الدفعة)</h1>
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">خزينة النخبة الشاملة</h1>
             <p class="mt-2 text-blue-200 text-sm md:text-base font-medium max-w-xl mx-auto">
                 منصة التكافل المالي، الشفافية، وإدارة احتياجات القاعات والدفعة بكل سرية ومسؤولية.
             </p>
@@ -59,9 +50,9 @@
     <!-- المحتوى الرئيسي -->
     <main class="max-w-5xl mx-auto px-4 mt-8 space-y-8">
 
-        <!-- لوحة الإحصائيات والشفافية المالية -->
+        <!-- الموقف المالي -->
         <section>
-            <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
                 <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
                     <i class="fa-solid fa-chart-pie text-indigo-600"></i>
                     الموقف المالي العام (مُحدث)
@@ -73,10 +64,11 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <!-- الوارد -->
+
+                <!-- إجمالي المجمع -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase">إجمالي المجمع</p>
+                        <p class="text-xs font-semibold text-slate-400">إجمالي المجمع</p>
                         <h3 class="text-2xl font-black text-emerald-600 mt-1" id="total-income">317,000 ج.س</h3>
                     </div>
                     <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl">
@@ -84,10 +76,10 @@
                     </div>
                 </div>
 
-                <!-- المصروف -->
+                <!-- المصروفات -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase">إجمالي المصروفات</p>
+                        <p class="text-xs font-semibold text-slate-400">إجمالي المصروفات</p>
                         <h3 class="text-2xl font-black text-rose-600 mt-1" id="total-expenses">225,000 ج.س</h3>
                     </div>
                     <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-xl">
@@ -95,23 +87,23 @@
                     </div>
                 </div>
 
-                <!-- المتبقي -->
+                <!-- الرصيد -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase">الرصيد المالي المتاح</p>
+                        <p class="text-xs font-semibold text-slate-400">الرصيد المالي المتاح</p>
                         <h3 class="text-2xl font-black text-indigo-600 mt-1" id="current-balance">92,000 ج.س</h3>
                     </div>
                     <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl">
                         <i class="fa-solid fa-wallet"></i>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- الأزرار السريعة للخدمات -->
+        <!-- الخدمات السريعة -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            
-            <!-- 1. زر الدفع والمساهمة -->
+
             <a href="payment.html" class="bg-gradient-to-br from-emerald-600 to-teal-800 text-white p-6 rounded-2xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 block">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center text-lg">
@@ -123,7 +115,6 @@
                 <p class="text-emerald-100 text-xs mt-1">تحويل الرسوم والمساهمات عبر بنكك، فوري، وأوكاش مباشرة.</p>
             </a>
 
-            <!-- 2. زر طلب الدعم -->
             <a href="student-portal.html?type=support" class="bg-gradient-to-br from-indigo-600 to-indigo-800 text-white p-6 rounded-2xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 block">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center text-lg">
@@ -135,7 +126,6 @@
                 <p class="text-indigo-100 text-xs mt-1">تقديم طلب سري تماماً لأمين المال مع حفظ الخصوصية المطلقة.</p>
             </a>
 
-            <!-- 3. زر بلاغ القاعات -->
             <a href="student-portal.html?type=issue" class="bg-gradient-to-br from-slate-800 to-slate-900 text-white p-6 rounded-2xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 block">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center text-lg">
@@ -149,7 +139,7 @@
 
         </section>
 
-        <!-- جدول متابعة احتياجات القاعات والمشاريع -->
+        <!-- جدول النواقص -->
         <section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
@@ -168,7 +158,6 @@
                         </tr>
                     </thead>
                     <tbody id="issues-list-body" class="divide-y divide-slate-100">
-                        <!-- سيتم جلب البنود ديناميكياً من لوحة التحكم هنا -->
                     </tbody>
                 </table>
             </div>
@@ -176,41 +165,48 @@
 
     </main>
 
-    <!-- الفوتر Footer -->
+    <!-- الفوتر -->
     <footer class="mt-12 text-center text-slate-400 text-xs">
         <p>خزينة النخبة الشاملة &copy; 2026 - جميع الحقوق محفوظة للدفعة</p>
     </footer>
 
-    <!-- جافاسكريبت لجلب البيانات وتحديث الصفحة تلقائياً -->
     <script>
-        // دالة إغلاق التنويه المنبثق
+        // إغلاق التنويه
         function closeNoticeModal() {
             document.getElementById('notice-modal').classList.add('hidden');
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            // القيم المحدثة لخزينة الدفعة بدقة
+
+            // الموقف المالي المعتمد
             const fixedIncome = 317000;
             const fixedExpenses = 225000;
-            const fixedBalance = fixedIncome - fixedExpenses; // 92,000 ج.س المتبقي
+            const fixedBalance = fixedIncome - fixedExpenses;
 
-            // حفظ القيمة في localStorage
+            // حفظ البيانات دون إعادة تصفيرها في كل زيارة
             localStorage.setItem('elite_income_raw', fixedIncome);
             localStorage.setItem('elite_expenses_raw', fixedExpenses);
+
             localStorage.setItem('elite_income', fixedIncome.toLocaleString() + ' ج.س');
             localStorage.setItem('elite_expenses', fixedExpenses.toLocaleString() + ' ج.س');
             localStorage.setItem('elite_balance', fixedBalance.toLocaleString() + ' ج.س');
 
-            // عرض البيانات المباشرة في الواجهة
-            document.getElementById('total-income').innerText = fixedIncome.toLocaleString() + ' ج.س';
-            document.getElementById('total-expenses').innerText = fixedExpenses.toLocaleString() + ' ج.س';
-            document.getElementById('current-balance').innerText = fixedBalance.toLocaleString() + ' ج.س';
+            // عرض الموقف المالي
+            document.getElementById('total-income').innerText =
+                fixedIncome.toLocaleString('en-US') + ' ج.س';
 
-            // جلب وعرض جدول النواقص والمشاريع
+            document.getElementById('total-expenses').innerText =
+                fixedExpenses.toLocaleString('en-US') + ' ج.س';
+
+            document.getElementById('current-balance').innerText =
+                fixedBalance.toLocaleString('en-US') + ' ج.س';
+
+            // عرض جدول النواقص
             const issues = JSON.parse(localStorage.getItem('elite_issues')) || [];
             const tableBody = document.getElementById('issues-list-body');
 
             if (issues.length === 0) {
+
                 tableBody.innerHTML = `
                     <tr>
                         <td class="py-3 px-4 font-bold text-slate-700">صندوق التكافل</td>
@@ -227,11 +223,15 @@
                         </td>
                     </tr>
                 `;
+
             } else {
+
                 tableBody.innerHTML = "";
+
                 issues.forEach(item => {
-                    const statusClass = item.status === 'تم الإنجاز' 
-                        ? 'bg-emerald-100 text-emerald-800' 
+
+                    const statusClass = item.status === 'تم الإنجاز'
+                        ? 'bg-emerald-100 text-emerald-800'
                         : 'bg-amber-100 text-amber-800';
 
                     const row = `
@@ -243,10 +243,12 @@
                             </td>
                         </tr>
                     `;
+
                     tableBody.innerHTML += row;
                 });
             }
         });
     </script>
+
 </body>
 </html>
