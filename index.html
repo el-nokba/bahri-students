@@ -9,6 +9,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
@@ -48,7 +49,6 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 .hero p,.hero span{color:#333!important}
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -67,7 +67,6 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
  </div>
 </div>
 
-<!-- رأس الصفحة -->
 <header class="hero text-white">
  <div class="max-w-6xl mx-auto px-5">
   <nav class="flex items-center justify-between py-5 border-b border-white/10">
@@ -80,7 +79,6 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
      <p class="text-xs text-blue-200">الإدارة المالية للدفعة</p>
     </div>
    </div>
-
    <div class="hidden md:flex items-center gap-5 text-sm text-blue-100">
     <a href="#finance">الموقف المالي</a>
     <a href="#goals">الهدف</a>
@@ -88,9 +86,8 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
     <a href="#services">الخدمات</a>
     <a href="#faq">الأسئلة الشائعة</a>
    </div>
-
-   <span class="text-xs px-3 py-2 rounded-full glass">
-    <i class="fa-solid fa-circle text-emerald-400 text-[8px] ml-1"></i> منصة الخزنة
+   <span id="db-status" class="text-xs px-3 py-2 rounded-full glass">
+    <i class="fa-solid fa-spinner fa-spin text-amber-300 text-[8px] ml-1"></i> جاري الاتصال
    </span>
   </nav>
 
@@ -126,16 +123,16 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
    <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">التقارير المالية</span></div>
    <h2 class="text-2xl font-black">الموقف المالي العام</h2>
   </div>
-  <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-4 py-2 rounded-full">
-   <i class="fa-solid fa-circle-check ml-1"></i> آخر أرقام معتمدة لدينا
-  </span>
+  <button onclick="refreshPublicData()" class="text-xs font-bold text-blue-700 bg-blue-50 px-4 py-2 rounded-full no-print">
+   <i class="fa-solid fa-rotate ml-1"></i> تحديث البيانات
+  </button>
  </div>
 
  <div class="rounded-3xl p-6 md:p-9 text-white" style="background:linear-gradient(120deg,#142440,#233e68)">
   <div class="flex flex-col md:flex-row justify-between gap-6">
    <div>
     <p class="text-blue-200 text-sm font-semibold"><i class="fa-solid fa-wallet ml-2" style="color:#d8b56b"></i>الرصيد المالي المتاح حالياً</p>
-    <h2 id="current-balance" class="text-4xl md:text-5xl font-black mt-4" style="color:#f1d28f">92,000</h2>
+    <h2 id="current-balance" class="text-4xl md:text-5xl font-black mt-4" style="color:#f1d28f">—</h2>
     <p class="text-blue-200 text-xs mt-3">جنيه سوداني</p>
    </div>
    <div class="glass rounded-2xl p-4 self-start">
@@ -148,11 +145,11 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 
  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
   <div class="card p-5 flex items-center justify-between">
-   <div><p class="text-xs text-slate-400 font-bold">إجمالي المبالغ المجمعة</p><h3 id="total-income" class="text-2xl font-black text-emerald-600 mt-3">317,000</h3><p class="text-xs text-slate-400 mt-2">جنيه سوداني</p></div>
+   <div><p class="text-xs text-slate-400 font-bold">إجمالي المبالغ المجمعة</p><h3 id="total-income" class="text-2xl font-black text-emerald-600 mt-3">—</h3><p class="text-xs text-slate-400 mt-2">جنيه سوداني</p></div>
    <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl"><i class="fa-solid fa-arrow-trend-up"></i></div>
   </div>
   <div class="card p-5 flex items-center justify-between">
-   <div><p class="text-xs text-slate-400 font-bold">إجمالي المصروفات</p><h3 id="total-expenses" class="text-2xl font-black text-rose-600 mt-3">225,000</h3><p class="text-xs text-slate-400 mt-2">جنيه سوداني</p></div>
+   <div><p class="text-xs text-slate-400 font-bold">إجمالي المصروفات</p><h3 id="total-expenses" class="text-2xl font-black text-rose-600 mt-3">—</h3><p class="text-xs text-slate-400 mt-2">جنيه سوداني</p></div>
    <div class="w-14 h-14 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-2xl"><i class="fa-solid fa-arrow-trend-down"></i></div>
   </div>
  </div>
@@ -162,24 +159,24 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
    <h3 class="font-extrabold text-sm"><i class="fa-solid fa-chart-pie text-amber-600 ml-2"></i>توزيع المبالغ المالية</h3>
    <span class="text-xs text-slate-400">من إجمالي المجمع</span>
   </div>
-  <div class="progress-track"><div id="expense-progress" class="progress-fill" style="width:71%"></div></div>
+  <div class="progress-track"><div id="expense-progress" class="progress-fill" style="width:0%"></div></div>
   <div class="grid grid-cols-2 gap-4 mt-4">
-   <div><span class="text-xs text-slate-400">نسبة المصروفات</span><p id="expense-percent" class="font-black text-rose-600 text-lg">71%</p></div>
-   <div class="text-left"><span class="text-xs text-slate-400">نسبة المتبقي</span><p id="balance-percent" class="font-black text-emerald-600 text-lg">29%</p></div>
+   <div><span class="text-xs text-slate-400">نسبة المصروفات</span><p id="expense-percent" class="font-black text-rose-600 text-lg">—</p></div>
+   <div class="text-left"><span class="text-xs text-slate-400">نسبة المتبقي</span><p id="balance-percent" class="font-black text-emerald-600 text-lg">—</p></div>
   </div>
  </div>
 
  <div class="card p-5 mt-4 flex flex-wrap items-center justify-between gap-3">
   <div class="flex items-center gap-3">
    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center"><i class="fa-regular fa-clock"></i></div>
-   <div><p class="font-bold text-sm">آخر تحديث للبيانات المالية</p><p class="text-xs text-slate-400 mt-1">تاريخ آخر تعديل معتمد من الإدارة</p></div>
+   <div><p class="font-bold text-sm">حالة تحديث البيانات المالية</p><p class="text-xs text-slate-400 mt-1">حالة الاتصال بقاعدة البيانات المشتركة</p></div>
   </div>
-  <span id="last-update" class="text-sm font-bold text-slate-500">غير مسجل حالياً</span>
+  <span id="last-update" class="text-sm font-bold text-slate-500">جاري التحميل...</span>
  </div>
 
  <p class="text-xs text-slate-400 mt-3 leading-6">
   <i class="fa-solid fa-circle-info ml-1"></i>
-  الأرقام المعروضة هي آخر أرقام معتمدة زُوّدت بها المنصة، وقد لا تمثل تحديثاً لحظياً.
+  الأرقام تُحمّل من قاعدة البيانات المشتركة. في حال تعذر الاتصال لن نعرض أرقاماً قديمة على أنها محدثة.
  </p>
 </section>
 
@@ -187,28 +184,17 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 <section id="chart">
  <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">قراءة بصرية للأرقام</span></div>
  <h2 class="text-2xl font-black mb-4">الرسم البياني للحركة المالية</h2>
-
  <div class="card p-6">
   <div class="flex flex-wrap justify-between gap-3 mb-6">
    <div><h3 class="font-extrabold">ملخص الوضع المالي</h3><p class="text-xs text-slate-400 mt-1">مقارنة الوارد والمنصرف والرصيد الحالي</p></div>
    <span class="status-pill">الإجمالي التراكمي</span>
   </div>
-
   <div class="space-y-6">
-   <div>
-    <div class="flex justify-between text-sm mb-2"><span class="font-bold">إجمالي الوارد</span><strong id="chart-income-label" class="text-emerald-700">317,000 ج.س</strong></div>
-    <div class="chart-bar"><span id="chart-income-bar" style="width:100%;background:#15966b"></span></div>
-   </div>
-   <div>
-    <div class="flex justify-between text-sm mb-2"><span class="font-bold">إجمالي المصروفات</span><strong id="chart-expenses-label" class="text-rose-600">225,000 ج.س</strong></div>
-    <div class="chart-bar"><span id="chart-expenses-bar" style="width:71%;background:#e87979"></span></div>
-   </div>
-   <div>
-    <div class="flex justify-between text-sm mb-2"><span class="font-bold">الرصيد المتبقي</span><strong id="chart-balance-label" class="text-blue-700">92,000 ج.س</strong></div>
-    <div class="chart-bar"><span id="chart-balance-bar" style="width:29%;background:#5277b8"></span></div>
-   </div>
+   <div><div class="flex justify-between text-sm mb-2"><span class="font-bold">إجمالي الوارد</span><strong id="chart-income-label" class="text-emerald-700">—</strong></div><div class="chart-bar"><span id="chart-income-bar" style="width:0%;background:#15966b"></span></div></div>
+   <div><div class="flex justify-between text-sm mb-2"><span class="font-bold">إجمالي المصروفات</span><strong id="chart-expenses-label" class="text-rose-600">—</strong></div><div class="chart-bar"><span id="chart-expenses-bar" style="width:0%;background:#e87979"></span></div></div>
+   <div><div class="flex justify-between text-sm mb-2"><span class="font-bold">الرصيد المتبقي</span><strong id="chart-balance-label" class="text-blue-700">—</strong></div><div class="chart-bar"><span id="chart-balance-bar" style="width:0%;background:#5277b8"></span></div></div>
   </div>
-  <p class="text-xs text-slate-400 mt-5">الرسم يوضح الإجماليات المتاحة حالياً، وليس حركة شهرية؛ ستتم إضافة المقارنة الشهرية بعد توفير بيانات الأشهر السابقة.</p>
+  <p class="text-xs text-slate-400 mt-5">الرسم يوضح الإجماليات المتاحة حالياً، وليس حركة شهرية.</p>
  </div>
 </section>
 
@@ -219,36 +205,32 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
   <span class="text-xs bg-slate-100 text-slate-500 rounded-full px-4 py-2">سجل العمليات</span>
  </div>
  <div id="transactions-list" class="card p-5">
-  <div class="empty-state"><i class="fa-solid fa-receipt text-2xl mb-3"></i><p class="font-bold text-slate-600">لا توجد عمليات تفصيلية منشورة حالياً</p><p class="text-xs mt-2">ستظهر هنا تفاصيل العمليات بعد إدخال سجل موثق.</p></div>
+  <div class="empty-state">جاري تحميل سجل العمليات...</div>
  </div>
 </section>
 
-<!-- 4 هدف الخزنة ومراحله -->
+<!-- 4 هدف الخزنة -->
 <section id="goals">
  <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">التخطيط المالي</span></div>
  <h2 class="text-2xl font-black mb-4">هدف الخزنة ومراحل الإنجاز</h2>
-
  <div class="card p-6">
   <div class="flex flex-col md:flex-row items-start gap-5">
    <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl shrink-0"><i class="fa-solid fa-bullseye"></i></div>
    <div class="flex-1 w-full">
     <div class="flex flex-wrap justify-between items-center gap-3">
      <div><h3 class="font-extrabold text-lg">هدفنا الوصول إلى 3 مليون جنيه</h3><p class="text-sm text-slate-500 mt-1">كل مساهمة تقربنا من تحقيق الهدف.</p></div>
-     <div class="text-left"><p class="text-xs text-slate-400">الهدف المالي</p><p class="font-black text-xl">3,000,000 ج.س</p></div>
+     <div class="text-left"><p class="text-xs text-slate-400">الهدف المالي</p><p id="goal-target" class="font-black text-xl">3,000,000 ج.س</p></div>
     </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
-     <div class="bg-emerald-50 rounded-xl p-4"><p class="text-xs text-emerald-700 font-bold">المبلغ المحقق</p><p id="goal-achieved" class="text-xl font-black text-emerald-700 mt-2">317,000 ج.س</p></div>
-     <div class="bg-amber-50 rounded-xl p-4"><p class="text-xs text-amber-700 font-bold">المبلغ المتبقي</p><p id="goal-remaining" class="text-xl font-black text-amber-700 mt-2">2,683,000 ج.س</p></div>
+     <div class="bg-emerald-50 rounded-xl p-4"><p class="text-xs text-emerald-700 font-bold">المبلغ المحقق</p><p id="goal-achieved" class="text-xl font-black text-emerald-700 mt-2">—</p></div>
+     <div class="bg-amber-50 rounded-xl p-4"><p class="text-xs text-amber-700 font-bold">المبلغ المتبقي</p><p id="goal-remaining" class="text-xl font-black text-amber-700 mt-2">—</p></div>
     </div>
-
-    <div class="flex justify-between items-center mt-5 mb-2"><span class="text-sm font-bold">نسبة تحقيق الهدف</span><span id="goal-percent" class="text-lg font-black text-amber-700">10.57%</span></div>
-    <div class="progress-track" style="height:14px"><div id="goal-progress" class="progress-fill" style="width:10.57%"></div></div>
-
+    <div class="flex justify-between items-center mt-5 mb-2"><span class="text-sm font-bold">نسبة تحقيق الهدف</span><span id="goal-percent" class="text-lg font-black text-amber-700">—</span></div>
+    <div class="progress-track" style="height:14px"><div id="goal-progress" class="progress-fill" style="width:0%"></div></div>
     <div class="mt-7">
      <h4 class="font-extrabold text-sm mb-5">محطات الوصول إلى الهدف</h4>
      <div id="milestones" class="space-y-5">
-      <div class="milestone current"><p class="font-bold text-sm">500,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الأولى</p></div>
+      <div class="milestone"><p class="font-bold text-sm">500,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الأولى</p></div>
       <div class="milestone"><p class="font-bold text-sm">1,000,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الثانية</p></div>
       <div class="milestone"><p class="font-bold text-sm">1,500,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الثالثة</p></div>
       <div class="milestone"><p class="font-bold text-sm">2,000,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الرابعة</p></div>
@@ -271,9 +253,10 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
     <h3 class="font-extrabold">كل مساهمة تصنع فرقاً</h3>
     <p class="text-sm text-slate-500 leading-7 mt-2">تُستخدم مساهمات الدفعة في دعم احتياجاتها وفق ما تعتمده الإدارة، مع الحفاظ على خصوصية الطلاب.</p>
     <div class="grid grid-cols-2 gap-3 mt-4">
-     <div class="bg-slate-50 rounded-xl p-4"><p class="text-xs text-slate-400">عدد المساهمات</p><p id="contribution-count" class="font-black text-2xl text-emerald-700 mt-1">235</p></div>
+     <div class="bg-slate-50 rounded-xl p-4"><p class="text-xs text-slate-400">عدد المساهمات المسجل سابقاً</p><p class="font-black text-2xl text-emerald-700 mt-1">235</p></div>
      <div class="bg-slate-50 rounded-xl p-4"><p class="text-xs text-slate-400">عدد المبادرات المنفذة</p><p class="font-black mt-1">غير متاح</p></div>
     </div>
+    <p class="text-xs text-slate-400 mt-3">عدد المساهمات المعروض هو الرقم الافتتاحي المعتمد، وليس عدّاً تلقائياً لكل الإيرادات.</p>
    </div>
   </div>
  </div>
@@ -286,11 +269,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
   <span class="status-pill">إعلانات الإدارة</span>
  </div>
  <div id="announcements-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-  <div class="card p-5">
-   <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center"><i class="fa-solid fa-bullhorn"></i></div><span class="text-xs text-slate-400">مساحة الإعلانات</span></div>
-   <h3 class="font-extrabold">لا توجد إعلانات جديدة حالياً</h3>
-   <p class="text-sm text-slate-500 leading-7 mt-2">ستظهر هنا التنويهات والإعلانات المعتمدة من إدارة الخزنة.</p>
-  </div>
+  <div class="card p-5"><p class="text-sm text-slate-500">جاري تحميل الإعلانات...</p></div>
  </div>
 </section>
 
@@ -299,12 +278,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
  <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">ما تحقق على أرض الواقع</span></div>
  <h2 class="text-2xl font-black mb-4">سجل إنجازات الخزنة</h2>
  <div id="achievements-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-  <div class="card p-6">
-   <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-trophy"></i></div>
-   <h3 class="font-extrabold">مساحة إنجازات الخزنة</h3>
-   <p class="text-sm text-slate-500 leading-7 mt-2">ستُوثق هنا الإنجازات التي تم تنفيذها فعلياً، مع تاريخ الإنجاز والتفاصيل المعتمدة.</p>
-   <span class="status-pill inline-block mt-3">بانتظار إضافة إنجازات موثقة</span>
-  </div>
+  <div class="card p-6"><p class="text-sm text-slate-500">جاري تحميل الإنجازات...</p></div>
  </div>
 </section>
 
@@ -335,14 +309,14 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
    <div class="rounded-xl bg-slate-50 p-5">
     <div class="flex items-center justify-between"><span class="text-sm font-bold">طلبات الدعم</span><i class="fa-solid fa-hand-holding-heart text-blue-600"></i></div>
-    <p class="text-2xl font-black mt-3">—</p><span class="text-xs text-slate-400">بانتظار الربط بقاعدة البيانات</span>
+    <p class="text-2xl font-black mt-3">—</p><span class="text-xs text-slate-400">لا تُعرض أعدادها قبل إعداد إحصاءات عامة آمنة.</span>
    </div>
    <div class="rounded-xl bg-slate-50 p-5">
     <div class="flex items-center justify-between"><span class="text-sm font-bold">بلاغات نواقص القاعات</span><i class="fa-solid fa-screwdriver-wrench text-amber-600"></i></div>
-    <p class="text-2xl font-black mt-3">—</p><span class="text-xs text-slate-400">بانتظار الربط بقاعدة البيانات</span>
+    <p class="text-2xl font-black mt-3">—</p><span class="text-xs text-slate-400">لا تُعرض أعدادها قبل إعداد إحصاءات عامة آمنة.</span>
    </div>
   </div>
-  <p class="text-xs text-slate-400 mt-4 leading-6">سيتم عرض أعداد الطلبات وحالاتها بعد ربط الموقع بقاعدة البيانات. لن تظهر تفاصيل أصحاب الطلبات للزوار.</p>
+  <p class="text-xs text-slate-400 mt-4 leading-6">لن تظهر تفاصيل أصحاب الطلبات أو بياناتهم الشخصية للزوار.</p>
  </div>
 </section>
 
@@ -359,7 +333,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
     <tbody id="issues-list-body" class="divide-y divide-slate-100"></tbody>
    </table>
   </div>
-  <div id="empty-issues" class="hidden text-center py-10"><i class="fa-solid fa-clipboard-check text-4xl text-slate-300"></i><p class="font-bold text-slate-600 mt-3">لا توجد بنود مسجلة حالياً</p><p class="text-xs text-slate-400 mt-1">ستظهر الاحتياجات الجديدة هنا عند إضافتها.</p></div>
+  <div id="empty-issues" class="hidden text-center py-10"><i class="fa-solid fa-clipboard-check text-4xl text-slate-300"></i><p id="empty-issues-title" class="font-bold text-slate-600 mt-3">لا توجد بنود مسجلة حالياً</p><p class="text-xs text-slate-400 mt-1">ستظهر الاحتياجات الجديدة هنا عند إضافتها.</p></div>
  </div>
 </section>
 
@@ -367,7 +341,6 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 <section id="suggestions">
  <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">رأيك يهمنا</span></div>
  <h2 class="text-2xl font-black mb-4">صندوق الاقتراحات والشكاوى</h2>
-
  <div class="card p-6">
   <div class="flex items-start gap-4">
    <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl shrink-0"><i class="fa-regular fa-lightbulb"></i></div>
@@ -376,34 +349,18 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
     <p class="text-sm text-slate-500 leading-7 mt-2">نرحب بمقترحاتكم وملاحظاتكم وشكاواكم التي تساعد على تحسين الخدمات وتنظيم العمل المالي. تصل رسالتك مباشرة إلى مسؤول متابعة الصندوق.</p>
    </div>
   </div>
-
   <form id="suggestion-form" class="mt-6 space-y-5" onsubmit="sendSuggestion(event)">
-   <div>
-    <label for="suggestion-type" class="form-label">نوع الرسالة</label>
+   <div><label for="suggestion-type" class="form-label">نوع الرسالة</label>
     <select id="suggestion-type" class="form-field" required>
-     <option value="">اختر نوع الرسالة</option>
-     <option value="اقتراح">اقتراح</option>
-     <option value="شكوى">شكوى</option>
-     <option value="ملاحظة">ملاحظة</option>
+     <option value="">اختر نوع الرسالة</option><option value="اقتراح">اقتراح</option><option value="شكوى">شكوى</option><option value="ملاحظة">ملاحظة</option>
     </select>
    </div>
-
-   <div>
-    <label for="suggestion-title" class="form-label">عنوان الرسالة</label>
-    <input id="suggestion-title" type="text" class="form-field" placeholder="اكتب عنواناً مختصراً للرسالة" maxlength="100" required>
-   </div>
-
-   <div>
-    <label for="suggestion-details" class="form-label">تفاصيل الرسالة</label>
-    <textarea id="suggestion-details" class="form-field" rows="5" maxlength="2000" placeholder="اكتب اقتراحك أو شكواك بالتفصيل..." required></textarea>
-   </div>
-
+   <div><label for="suggestion-title" class="form-label">عنوان الرسالة</label><input id="suggestion-title" type="text" class="form-field" placeholder="اكتب عنواناً مختصراً للرسالة" maxlength="100" required></div>
+   <div><label for="suggestion-details" class="form-label">تفاصيل الرسالة</label><textarea id="suggestion-details" class="form-field" rows="5" maxlength="2000" placeholder="اكتب اقتراحك أو شكواك بالتفصيل..." required></textarea></div>
    <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-xl text-white font-bold text-sm no-print" style="background:#15966b">
-    <i class="fa-brands fa-whatsapp text-lg"></i>
-    إرسال الرسالة عبر واتساب
+    <i class="fa-brands fa-whatsapp text-lg"></i>إرسال الرسالة عبر واتساب
    </button>
   </form>
-
   <div class="mt-5 rounded-xl bg-emerald-50 border border-emerald-100 p-4">
    <p class="text-sm font-bold text-emerald-800"><i class="fa-solid fa-shield-halved ml-2"></i>رسالتك ستصل مباشرة إلى مسؤول الصندوق</p>
    <p class="text-xs text-emerald-700 mt-2 leading-6">بعد الضغط على زر الإرسال ستُفتح محادثة واتساب برسالتك جاهزة. يرجى الضغط على إرسال داخل واتساب لإتمام العملية. لا تُحفظ الرسائل في الموقع.</p>
@@ -416,11 +373,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
  <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">الرجوع للبيانات السابقة</span></div>
  <h2 class="text-2xl font-black mb-4">أرشيف الأشهر السابقة</h2>
  <div id="archive-list" class="card p-6">
-  <div class="empty-state">
-   <i class="fa-solid fa-box-archive text-2xl mb-3"></i>
-   <p class="font-bold text-slate-600">الأرشيف جاهز لاستقبال البيانات</p>
-   <p class="text-xs mt-2">ستظهر هنا الأشهر السابقة وأرصدتها بعد حفظ البيانات الشهرية في قاعدة البيانات.</p>
-  </div>
+  <div class="empty-state"><i class="fa-solid fa-box-archive text-2xl mb-3"></i><p class="font-bold text-slate-600">الأرشيف جاهز لاستقبال البيانات</p><p class="text-xs mt-2">ستظهر هنا الأشهر السابقة بعد إنشاء سجل الأرشيف الشهري.</p></div>
  </div>
 </section>
 
@@ -429,7 +382,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
  <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">المستندات والإثباتات</span></div>
  <h2 class="text-2xl font-black mb-4">الإيصالات والمستندات المالية</h2>
  <div id="receipts-list" class="card p-5">
-  <div class="empty-state"><i class="fa-solid fa-file-circle-check text-2xl mb-3"></i><p class="font-bold text-slate-600">لا توجد إيصالات أو مستندات منشورة حالياً</p><p class="text-xs mt-2">ستُعرض المستندات المعتمدة هنا بعد رفعها.</p></div>
+  <div class="empty-state"><i class="fa-solid fa-file-circle-check text-2xl mb-3"></i><p class="font-bold text-slate-600">لا توجد إيصالات منشورة للعامة</p><p class="text-xs mt-2">الإيصالات المالية لا تُعرض هنا تلقائياً حفاظاً على الخصوصية.</p></div>
  </div>
 </section>
 
@@ -451,12 +404,11 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
   <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">كيف أساهم في الخزنة؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">يمكنك الدخول إلى صفحة طرق الدفع والمساهمة لمعرفة وسائل الدفع المتاحة والتعليمات المعتمدة.</div></div>
   <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">كيف أطلب مساعدة مالية؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">استخدم خدمة طلب دعم ومساعدة من بوابة الطالب. تُرسل التفاصيل إلى الجهة المسؤولة.</div></div>
   <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">هل تظهر أسماء الطلاب المستفيدين؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">لا. يجب الحفاظ على خصوصية الطلاب وعدم نشر أسمائهم أو تفاصيل طلباتهم الشخصية.</div></div>
-  <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">هل الأرقام تتحدث لحظياً لكل الطلاب؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">التحديث المشترك والفوري بين جميع الأجهزة يحتاج إلى ربط الموقع بقاعدة بيانات مشتركة.</div></div>
+  <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">هل الأرقام تتحدث لحظياً لكل الطلاب؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">تُحمّل الأرقام من قاعدة البيانات المشتركة عند فتح الصفحة أو الضغط على تحديث البيانات.</div></div>
   <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">كيف أبلغ عن نقص في القاعة؟<i class="fa-solid fa-chevron-down text-slate-400"></i></button><div class="faq-answer">استخدم خدمة الإبلاغ عن نواقص القاعات واكتب المكان ووصف النقص بوضوح.</div></div>
  </div>
 </section>
 
-<!-- رسالة ختامية -->
 <section class="rounded-3xl p-7 md:p-9 text-center" style="background:#eaf0f8">
  <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center text-2xl mb-4" style="background:#172a4a;color:#e2c47e"><i class="fa-solid fa-handshake-angle"></i></div>
  <h2 class="text-xl md:text-2xl font-black" style="color:#172a4a">الخزنة أمانة الجميع</h2>
@@ -475,175 +427,59 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 </footer>
 
 <script>
-const TREASURY_GOAL=3000000;
-const CONTRIBUTION_COUNT=235;
+/* إعداد اتصال Supabase */
+const TREASURY_GOAL = 3000000;
+const OPENING_CONTRIBUTIONS_COUNT = 235;
 
-// رقم مسؤول استقبال الاقتراحات والشكاوى
-// الصيغة الدولية للسودان: 249 ثم الرقم دون الصفر الأول
-const SUGGESTIONS_WHATSAPP='249113991528';
-
-function closeNoticeModal(){
- document.getElementById('notice-modal').classList.add('hidden');
-}
-
-function readAmount(key,fallback){
- const value=localStorage.getItem(key);
- if(value===null)return fallback;
- const digits=String(value).replace(/[^\d]/g,'');
- return digits?Number(digits):fallback;
-}
-
-function formatMoney(number){
- return Number(number).toLocaleString('en-US');
-}
-
-function updateFinance(){
- const income=readAmount('elite_income',317000);
- const expenses=readAmount('elite_expenses',225000);
- const balance=income-expenses;
-
- document.getElementById('total-income').textContent=formatMoney(income);
- document.getElementById('total-expenses').textContent=formatMoney(expenses);
- document.getElementById('current-balance').textContent=formatMoney(balance);
-
- const spent=income>0?Math.min(100,Math.max(0,expenses/income*100)):0;
- const remaining=income>0?Math.max(0,100-spent):0;
-
- document.getElementById('expense-progress').style.width=spent+'%';
- document.getElementById('expense-percent').textContent=spent.toFixed(1)+'%';
- document.getElementById('balance-percent').textContent=remaining.toFixed(1)+'%';
-
- // الرسم البياني
- const maxValue=Math.max(income,expenses,Math.max(0,balance),1);
- document.getElementById('chart-income-label').textContent=formatMoney(income)+' ج.س';
- document.getElementById('chart-expenses-label').textContent=formatMoney(expenses)+' ج.س';
- document.getElementById('chart-balance-label').textContent=formatMoney(balance)+' ج.س';
- document.getElementById('chart-income-bar').style.width=(income/maxValue*100)+'%';
- document.getElementById('chart-expenses-bar').style.width=(expenses/maxValue*100)+'%';
- document.getElementById('chart-balance-bar').style.width=(Math.max(0,balance)/maxValue*100)+'%';
-
- // الهدف المالي
- const goalRemaining=Math.max(0,TREASURY_GOAL-income);
- const goalPercent=Math.min(100,Math.max(0,(income/TREASURY_GOAL)*100));
-
- document.getElementById('goal-achieved').textContent=formatMoney(income)+' ج.س';
- document.getElementById('goal-remaining').textContent=formatMoney(goalRemaining)+' ج.س';
- document.getElementById('goal-percent').textContent=goalPercent.toFixed(2)+'%';
- document.getElementById('goal-progress').style.width=goalPercent+'%';
-
- // مراحل الهدف
- const milestones=document.querySelectorAll('#milestones .milestone');
- const stages=[500000,1000000,1500000,2000000,3000000];
- let nextStage=stages.findIndex(stage=>income<stage);
- if(nextStage===-1)nextStage=stages.length;
-
- milestones.forEach((item,index)=>{
-  item.classList.remove('done','current');
-  if(income>=stages[index])item.classList.add('done');
-  else if(index===nextStage)item.classList.add('current');
- });
-
- document.getElementById('contribution-count').textContent=formatMoney(CONTRIBUTION_COUNT);
-
- // تاريخ آخر تحديث إذا كانت لوحة الإدارة تحفظه
- const lastUpdate=localStorage.getItem('elite_last_update');
- document.getElementById('last-update').textContent=lastUpdate||'غير مسجل حالياً';
-}
-
-// إرسال الاقتراح أو الشكوى عبر واتساب
-function sendSuggestion(event){
- event.preventDefault();
-
- const type=document.getElementById('suggestion-type').value.trim();
- const title=document.getElementById('suggestion-title').value.trim();
- const details=document.getElementById('suggestion-details').value.trim();
-
- if(!type||!title||!details){
-  alert('يرجى إكمال جميع الحقول قبل الإرسال.');
-  return;
- }
-
- const message=
-  'رسالة جديدة إلى مسؤول صندوق الاقتراحات والشكاوى\n\n'+
-  'نوع الرسالة: '+type+'\n'+
-  'العنوان: '+title+'\n\n'+
-  'التفاصيل:\n'+details;
-
- const whatsappURL='https://wa.me/'+SUGGESTIONS_WHATSAPP+'?text='+encodeURIComponent(message);
-
- // فتح واتساب؛ على الطالب الضغط على إرسال داخل المحادثة
- const newWindow=window.open(whatsappURL,'_blank');
-
- // بديل في حال منع المتصفح فتح نافذة جديدة
- if(!newWindow){
-  window.location.href=whatsappURL;
- }
-}
-
-function renderIssues(){
- const body=document.getElementById('issues-list-body');
- body.innerHTML='';
-
- let issues=[];
- try{
-  issues=JSON.parse(localStorage.getItem('elite_issues'))||[];
- }catch(e){issues=[];}
-
- if(!issues.length){
-  document.getElementById('empty-issues').classList.remove('hidden');
-  return;
- }
-
- document.getElementById('empty-issues').classList.add('hidden');
-
- issues.forEach(item=>{
-  const tr=document.createElement('tr');
-  [item.location||'',item.desc||'',item.status||''].forEach(value=>{
-   const td=document.createElement('td');
-   td.className='p-4 text-slate-600';
-   td.textContent=value;
-   tr.appendChild(td);
-  });
-  body.appendChild(tr);
- });
-}
-
-function toggleFaq(button){
- button.parentElement.classList.toggle('open');
-}
-
-function printReport(){
- window.print();
-}
-
-
-/* ==========================================
-   ربط الشاشة الرئيسية بقاعدة بيانات Supabase
-   المفتاح Publishable مخصص للاستخدام العام.
-   لا تضع هنا أبداً Secret / service_role.
-========================================== */
 const SUPABASE_URL = 'https://cglezfkobtnfvgzdtjhi.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_BlMI-s9QSTDFrSyjiMz_8g_zLld2_9U';
+
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
 
+/* رقم مسؤول استقبال الاقتراحات والشكاوى */
+const SUGGESTIONS_WHATSAPP = '249113991528';
+
+function closeNoticeModal() {
+  document.getElementById('notice-modal').classList.add('hidden');
+}
+
+function formatMoney(number) {
+  return Number(number || 0).toLocaleString('en-US');
+}
+
 function setText(id, value) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = value;
+  const element = document.getElementById(id);
+  if (element) element.textContent = value;
+}
+
+function setDatabaseStatus(connected, message) {
+  const status = document.getElementById('db-status');
+  if (!status) return;
+
+  if (connected) {
+    status.innerHTML = '<i class="fa-solid fa-circle text-emerald-400 text-[8px] ml-1"></i> متصل بقاعدة البيانات';
+    setText('last-update', message || 'تم تحميل البيانات بنجاح');
+  } else {
+    status.innerHTML = '<i class="fa-solid fa-circle-exclamation text-rose-400 text-[8px] ml-1"></i> تعذر الاتصال';
+    setText('last-update', message || 'تعذر تحميل البيانات');
+  }
 }
 
 function showLoadError(containerId, message) {
-  const el = document.getElementById(containerId);
-  if (!el) return;
-  el.innerHTML = '';
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  container.innerHTML = '';
   const box = document.createElement('div');
   box.className = 'empty-state';
   box.textContent = message;
-  el.appendChild(box);
+  container.appendChild(box);
 }
 
+/* تحميل الملخص المالي */
 async function updateFinance() {
   const { data, error } = await supabaseClient
     .from('public_treasury_summary')
@@ -652,37 +488,42 @@ async function updateFinance() {
 
   if (error || !data) {
     console.error('Supabase finance summary:', error);
-    setText('last-update', 'تعذر تحميل البيانات من قاعدة البيانات');
-    return;
+    ['current-balance','total-income','total-expenses','goal-achieved','goal-remaining','goal-percent','expense-percent','balance-percent','chart-income-label','chart-expenses-label','chart-balance-label']
+      .forEach(id => setText(id, 'غير متاح'));
+    setDatabaseStatus(false, 'تعذر تحميل الملخص المالي');
+    return false;
   }
 
   const income = Number(data.total_income || 0);
   const expenses = Number(data.total_expenses || 0);
-  const balance = Number(data.current_balance || 0);
+  const balance = Number(data.current_balance ?? (income - expenses));
   const goal = Number(data.target_amount || TREASURY_GOAL);
-  const contributions = Number(data.contributions_count || 0);
 
   setText('total-income', formatMoney(income));
   setText('total-expenses', formatMoney(expenses));
   setText('current-balance', formatMoney(balance));
-  setText('contribution-count', formatMoney(contributions));
 
   const spent = income > 0 ? Math.min(100, Math.max(0, expenses / income * 100)) : 0;
-  const remaining = income > 0 ? Math.max(0, 100 - spent) : 0;
+  const remainingPercent = income > 0 ? Math.max(0, 100 - spent) : 0;
+
   document.getElementById('expense-progress').style.width = spent + '%';
   setText('expense-percent', spent.toFixed(1) + '%');
-  setText('balance-percent', remaining.toFixed(1) + '%');
+  setText('balance-percent', remainingPercent.toFixed(1) + '%');
 
   const maxValue = Math.max(income, expenses, Math.max(0, balance), 1);
+
   setText('chart-income-label', formatMoney(income) + ' ج.س');
   setText('chart-expenses-label', formatMoney(expenses) + ' ج.س');
   setText('chart-balance-label', formatMoney(balance) + ' ج.س');
+
   document.getElementById('chart-income-bar').style.width = (income / maxValue * 100) + '%';
   document.getElementById('chart-expenses-bar').style.width = (expenses / maxValue * 100) + '%';
   document.getElementById('chart-balance-bar').style.width = (Math.max(0, balance) / maxValue * 100) + '%';
 
   const goalRemaining = Math.max(0, goal - income);
   const goalPercent = goal > 0 ? Math.min(100, Math.max(0, income / goal * 100)) : 0;
+
+  setText('goal-target', formatMoney(goal) + ' ج.س');
   setText('goal-achieved', formatMoney(income) + ' ج.س');
   setText('goal-remaining', formatMoney(goalRemaining) + ' ج.س');
   setText('goal-percent', goalPercent.toFixed(2) + '%');
@@ -692,17 +533,20 @@ async function updateFinance() {
   const milestones = document.querySelectorAll('#milestones .milestone');
   let nextStage = stages.findIndex(stage => income < stage);
   if (nextStage === -1) nextStage = stages.length;
+
   milestones.forEach((item, index) => {
     item.classList.remove('done', 'current');
     if (income >= stages[index]) item.classList.add('done');
     else if (index === nextStage) item.classList.add('current');
   });
 
-  setText('last-update', 'محدّث من قاعدة البيانات');
+  return true;
 }
 
+/* تحميل آخر العمليات العامة فقط */
 async function renderTransactions() {
   const container = document.getElementById('transactions-list');
+
   const { data, error } = await supabaseClient
     .from('public_financial_transactions')
     .select('id, transaction_type, amount, category, description, transaction_date')
@@ -712,43 +556,58 @@ async function renderTransactions() {
   if (error) {
     console.error('Supabase transactions:', error);
     showLoadError('transactions-list', 'تعذر تحميل سجل العمليات حالياً.');
-    return;
+    return false;
   }
 
   container.innerHTML = '';
+
   if (!data || !data.length) {
     showLoadError('transactions-list', 'لا توجد عمليات تفصيلية منشورة حالياً. ستظهر هنا بعد تسجيلها من لوحة الإدارة.');
-    return;
+    return true;
   }
 
   const list = document.createElement('div');
   list.className = 'divide-y divide-slate-100';
+
   data.forEach(item => {
+    const isIncome = item.transaction_type === 'income';
+
     const row = document.createElement('div');
     row.className = 'py-4 flex flex-wrap items-start justify-between gap-3';
+
     const details = document.createElement('div');
     details.className = 'min-w-0 flex-1';
+
     const title = document.createElement('p');
     title.className = 'font-extrabold text-sm';
-    title.textContent = item.transaction_type === 'income' ? 'إيراد' : 'مصروف';
+    title.textContent = isIncome ? 'إيراد' : 'مصروف';
+
     const desc = document.createElement('p');
     desc.className = 'text-xs text-slate-500 mt-1';
     desc.textContent = [item.category, item.description].filter(Boolean).join(' — ') || 'بدون وصف إضافي';
+
     const date = document.createElement('p');
     date.className = 'text-xs text-slate-400 mt-1';
     date.textContent = item.transaction_date || '';
+
     details.append(title, desc, date);
+
     const amount = document.createElement('strong');
-    amount.className = item.transaction_type === 'income' ? 'text-emerald-700' : 'text-rose-600';
-    amount.textContent = (item.transaction_type === 'income' ? '+' : '−') + formatMoney(item.amount) + ' ج.س';
+    amount.className = isIncome ? 'text-emerald-700' : 'text-rose-600';
+    amount.textContent = (isIncome ? '+' : '−') + formatMoney(item.amount) + ' ج.س';
+
     row.append(details, amount);
     list.appendChild(row);
   });
+
   container.appendChild(list);
+  return true;
 }
 
+/* تحميل الإعلانات */
 async function renderAnnouncements() {
   const container = document.getElementById('announcements-list');
+
   const { data, error } = await supabaseClient
     .from('announcements')
     .select('id, title, content, created_at')
@@ -758,32 +617,43 @@ async function renderAnnouncements() {
   if (error) {
     console.error('Supabase announcements:', error);
     showLoadError('announcements-list', 'تعذر تحميل الإعلانات حالياً.');
-    return;
+    return false;
   }
+
   container.innerHTML = '';
+
   if (!data || !data.length) {
     showLoadError('announcements-list', 'لا توجد إعلانات جديدة حالياً.');
-    return;
+    return true;
   }
+
   data.forEach(item => {
     const card = document.createElement('article');
     card.className = 'card p-5';
+
     const heading = document.createElement('h3');
     heading.className = 'font-extrabold';
-    heading.textContent = item.title;
+    heading.textContent = item.title || 'إعلان';
+
     const body = document.createElement('p');
     body.className = 'text-sm text-slate-500 leading-7 mt-2';
-    body.textContent = item.content;
+    body.textContent = item.content || '';
+
     const date = document.createElement('p');
     date.className = 'text-xs text-slate-400 mt-3';
     date.textContent = item.created_at ? new Date(item.created_at).toLocaleDateString('ar') : '';
+
     card.append(heading, body, date);
     container.appendChild(card);
   });
+
+  return true;
 }
 
+/* تحميل الإنجازات */
 async function renderAchievements() {
   const container = document.getElementById('achievements-list');
+
   const { data, error } = await supabaseClient
     .from('achievements')
     .select('id, title, description, achievement_date')
@@ -792,34 +662,51 @@ async function renderAchievements() {
   if (error) {
     console.error('Supabase achievements:', error);
     showLoadError('achievements-list', 'تعذر تحميل الإنجازات حالياً.');
-    return;
+    return false;
   }
+
   container.innerHTML = '';
+
   if (!data || !data.length) {
     showLoadError('achievements-list', 'لا توجد إنجازات موثقة مضافة حتى الآن.');
-    return;
+    return true;
   }
+
   data.forEach(item => {
     const card = document.createElement('article');
     card.className = 'card p-6';
+
+    const iconBox = document.createElement('div');
+    iconBox.className = 'w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4';
+    iconBox.innerHTML = '<i class="fa-solid fa-trophy"></i>';
+
     const heading = document.createElement('h3');
     heading.className = 'font-extrabold';
-    heading.textContent = item.title;
+    heading.textContent = item.title || 'إنجاز';
+
     const body = document.createElement('p');
     body.className = 'text-sm text-slate-500 leading-7 mt-2';
     body.textContent = item.description || '';
+
     const date = document.createElement('p');
     date.className = 'text-xs text-slate-400 mt-3';
     date.textContent = item.achievement_date || '';
-    card.append(heading, body, date);
+
+    card.append(iconBox, heading, body, date);
     container.appendChild(card);
   });
+
+  return true;
 }
 
+/* تحميل احتياجات القاعات */
 async function renderIssues() {
   const body = document.getElementById('issues-list-body');
   const empty = document.getElementById('empty-issues');
+  const emptyTitle = document.getElementById('empty-issues-title');
+
   body.innerHTML = '';
+
   const { data, error } = await supabaseClient
     .from('hall_needs')
     .select('id, item_name, description, status')
@@ -828,41 +715,116 @@ async function renderIssues() {
   if (error) {
     console.error('Supabase hall needs:', error);
     empty.classList.remove('hidden');
-    empty.querySelector('p').textContent = 'تعذر تحميل احتياجات القاعات حالياً.';
-    return;
+    emptyTitle.textContent = 'تعذر تحميل احتياجات القاعات حالياً.';
+    return false;
   }
+
   if (!data || !data.length) {
     empty.classList.remove('hidden');
-    return;
+    emptyTitle.textContent = 'لا توجد بنود مسجلة حالياً';
+    return true;
   }
+
   empty.classList.add('hidden');
+
   const statusLabels = {
     pending: 'قيد الانتظار',
     in_progress: 'قيد التنفيذ',
     completed: 'مكتمل'
   };
+
   data.forEach(item => {
     const tr = document.createElement('tr');
-    [item.item_name || '', item.description || '', statusLabels[item.status] || item.status || ''].forEach(value => {
+
+    [
+      item.item_name || '',
+      item.description || '',
+      statusLabels[item.status] || item.status || ''
+    ].forEach(value => {
       const td = document.createElement('td');
       td.className = 'p-4 text-slate-600';
       td.textContent = value;
       tr.appendChild(td);
     });
+
     body.appendChild(tr);
   });
+
+  return true;
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  await Promise.all([
-    updateFinance(),
-    renderTransactions(),
-    renderAnnouncements(),
-    renderAchievements(),
-    renderIssues()
-  ]);
-});
+/* تحديث كل بيانات الصفحة */
+let isRefreshing = false;
 
+async function refreshPublicData() {
+  if (isRefreshing) return;
+  isRefreshing = true;
+
+  setDatabaseStatus(false, 'جاري تحديث البيانات...');
+
+  try {
+    const results = await Promise.all([
+      updateFinance(),
+      renderTransactions(),
+      renderAnnouncements(),
+      renderAchievements(),
+      renderIssues()
+    ]);
+
+    const allSucceeded = results.every(result => result === true);
+
+    if (allSucceeded) {
+      setDatabaseStatus(true, 'آخر تحميل: ' + new Date().toLocaleTimeString('ar'));
+    } else {
+      setDatabaseStatus(false, 'بعض البيانات تعذر تحميلها');
+    }
+  } catch (error) {
+    console.error('Public data refresh error:', error);
+    setDatabaseStatus(false, 'حدث خطأ أثناء الاتصال بقاعدة البيانات');
+  } finally {
+    isRefreshing = false;
+  }
+}
+
+/* إرسال الاقتراحات عبر واتساب */
+function sendSuggestion(event) {
+  event.preventDefault();
+
+  const type = document.getElementById('suggestion-type').value.trim();
+  const title = document.getElementById('suggestion-title').value.trim();
+  const details = document.getElementById('suggestion-details').value.trim();
+
+  if (!type || !title || !details) {
+    alert('يرجى إكمال جميع الحقول قبل الإرسال.');
+    return;
+  }
+
+  const message =
+    'رسالة جديدة إلى مسؤول صندوق الاقتراحات والشكاوى\n\n' +
+    'نوع الرسالة: ' + type + '\n' +
+    'العنوان: ' + title + '\n\n' +
+    'التفاصيل:\n' + details;
+
+  const whatsappURL = 'https://wa.me/' + SUGGESTIONS_WHATSAPP + '?text=' + encodeURIComponent(message);
+  const newWindow = window.open(whatsappURL, '_blank');
+
+  if (!newWindow) {
+    window.location.href = whatsappURL;
+  }
+}
+
+function toggleFaq(button) {
+  button.parentElement.classList.toggle('open');
+}
+
+function printReport() {
+  window.print();
+}
+
+/* بدء تحميل البيانات عند فتح الصفحة */
+document.addEventListener('DOMContentLoaded', function() {
+  refreshPublicData();
+});
 </script>
 
 </body>
