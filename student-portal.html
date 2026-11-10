@@ -6,6 +6,7 @@
     <title>بوابة الخدمات والطلبات - خزينة النخبة</title>
     <!-- مكتبة Tailwind CSS للتصميم -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- خط تجوال من جوجل -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <!-- أيقونات FontAwesome -->
@@ -119,7 +120,10 @@
 
     <!-- جافاسكريبت للتحكم بالتبويبات والإرسال المباشر للواتساب -->
     <script>
-        // رقم واتساب الأمين المالي
+        // اتصال قاعدة بيانات خزينة النخبة
+        const SUPABASE_URL = 'https://cglezfkobtnfvgzdtjhi.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_BlMI-s9QSTDFrSyjiMz_8g_zLld2_9U';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         const ADMIN_WHATSAPP = "249116314682";
 
         // التحقق من نوع التبويب المطلوب عند فتح الصفحة عبر الرابط
@@ -153,7 +157,7 @@
         }
 
         // إرسال طلب الدعم سرياً عبر الواتساب
-        function submitSupport(e) {
+        async function submitSupport(e) {
             e.preventDefault();
             const name = document.getElementById('sup-name').value || "فاعل خير / سري";
             const details = document.getElementById('sup-details').value;
@@ -165,11 +169,20 @@
                             `📝 *التفاصيل:* ${details}\n` +
                             `📞 *طريقة التواصل:* ${contact}`;
 
-            openWhatsApp(message);
+            const button = document.querySelector('#support-form button[type="submit"]');
+            button.disabled = true;
+            try {
+                const { error } = await supabaseClient.from('student_portal_requests').insert({request_type:'support', requester_name:document.getElementById('sup-name').value.trim() || null, details, contact});
+                if (error) throw error;
+                openWhatsApp(message);
+                alert('تم حفظ طلبك بسرية وإرساله للأمين المالي.');
+                document.getElementById('support-form').reset();
+            } catch (error) { console.error(error); alert('تعذر حفظ الطلب. لم يتم إرساله. حاول مرة أخرى.'); }
+            finally { button.disabled = false; }
         }
 
         // إرسال بلاغ النواقص عبر الواتساب
-        function submitIssue(e) {
+        async function submitIssue(e) {
             e.preventDefault();
             const location = document.getElementById('iss-location').value;
             const description = document.getElementById('iss-description').value;
@@ -179,7 +192,16 @@
                             `🏫 *المكان/القاعة:* ${location}\n` +
                             `🔧 *وصف النقص:* ${description}`;
 
-            openWhatsApp(message);
+            const button = document.querySelector('#issue-form button[type="submit"]');
+            button.disabled = true;
+            try {
+                const { error } = await supabaseClient.from('student_portal_requests').insert({request_type:'issue', location, details:description});
+                if (error) throw error;
+                openWhatsApp(message);
+                alert('تم حفظ البلاغ وإرساله للأمين المالي.');
+                document.getElementById('issue-form').reset();
+            } catch (error) { console.error(error); alert('تعذر حفظ البلاغ. لم يتم إرساله. حاول مرة أخرى.'); }
+            finally { button.disabled = false; }
         }
 
         // دالة فتح رابط الواتساب مباشرة
