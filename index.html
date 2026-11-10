@@ -106,9 +106,6 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
     <a href="#finance" class="inline-flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-sm" style="background:#D6AD55;color:#14243D">
      استكشف الموقف المالي <i class="fa-solid fa-arrow-down"></i>
     </a>
-    <button onclick="printReport()" class="glass px-5 py-3 rounded-xl text-sm font-bold">
-     <i class="fa-solid fa-print ml-2"></i>طباعة الصفحة
-    </button>
    </div>
   </div>
  </div>
@@ -820,10 +817,6 @@ function sendSuggestion(event) {
 
 function toggleFaq(button) {
   button.parentElement.classList.toggle('open');
-}
-
-function printReport() {
-  window.print();
 }
 
 /* بدء تحميل البيانات عند فتح الصفحة */

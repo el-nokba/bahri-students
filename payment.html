@@ -253,63 +253,39 @@
     </footer>
 
 
-    <!-- نسخ أرقام الحسابات -->
+    <!-- نسخ أرقام الحسابات مباشرة إلى الحافظة دون رسائل منبثقة -->
     <script>
-
         function copyAccount(elementId) {
-
             const accountElement = document.getElementById(elementId);
-
             if (!accountElement) return;
 
             const text = accountElement.innerText.trim();
+            if (!text) return;
 
             if (navigator.clipboard && window.isSecureContext) {
-
-                navigator.clipboard.writeText(text)
-                    .then(() => {
-                        alert("تم نسخ الرقم بنجاح: " + text);
-                    })
-                    .catch(() => {
-                        fallbackCopy(text);
-                    });
-
+                navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
             } else {
-
                 fallbackCopy(text);
-
             }
-
         }
 
-
         function fallbackCopy(text) {
-
             const input = document.createElement("textarea");
-
             input.value = text;
             input.style.position = "fixed";
             input.style.opacity = "0";
-
+            input.setAttribute("readonly", "");
             document.body.appendChild(input);
-
             input.select();
 
             try {
-
                 document.execCommand("copy");
-                alert("تم نسخ الرقم بنجاح: " + text);
-
             } catch (error) {
-
-                alert("تعذر نسخ الرقم، حاول مرة أخرى");
-
+                // لا تظهر نافذة منبثقة؛ تبقى عملية النسخ صامتة.
             }
 
             document.body.removeChild(input);
-
         }
-
     </script>
 
 </body>
