@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101d36">
+<meta name="theme-color" content="#14243D">
 <title>خزينة النخبة الشاملة</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,9 +13,9 @@
 
 <style>
 *{box-sizing:border-box}
-body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
-:root{--navy:#101d36;--blue:#233e68;--gold:#d8b56b;--green:#15966b}
-.hero{background:radial-gradient(circle at 15% 20%,rgba(216,181,107,.17),transparent 30%),linear-gradient(120deg,#101d36,#1c3155 65%,#14213b);overflow:hidden}
+body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#14243D;margin:0}
+:root{--navy:#14243D;--blue:#233A5C;--gold:#D6AD55;--green:#15966b}
+.hero{background:radial-gradient(circle at 15% 20%,rgba(216,181,107,.17),transparent 30%),linear-gradient(120deg,#14243D,#203653 65%,#14243D);overflow:hidden}
 .glass{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
 .card{background:white;border:1px solid #e9edf3;border-radius:20px;transition:.2s}
 .card:hover{box-shadow:0 10px 25px rgba(20,35,60,.07)}
@@ -23,7 +23,7 @@ body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
 .action-card:hover{transform:translateY(-4px);filter:brightness(1.05)}
 .gold-line{width:38px;height:3px;background:var(--gold);border-radius:10px}
 .progress-track{height:10px;background:#e9edf3;border-radius:20px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,#d8b56b,#f0d49b);border-radius:20px;transition:width .5s}
+.progress-fill{height:100%;background:linear-gradient(90deg,#D6AD55,#E8C978);border-radius:20px;transition:width .5s}
 .section-kicker{font-size:12px;font-weight:700;color:#94a3b8}
 .empty-state{border:1px dashed #d6deea;background:#f8fafc;border-radius:16px;padding:24px;text-align:center;color:#94a3b8}
 .faq-item{border-bottom:1px solid #edf0f4}
@@ -35,18 +35,18 @@ body{font-family:'Tajawal',sans-serif;background:#f4f6fa;color:#18243a;margin:0}
 .milestone{position:relative;padding-right:25px}
 .milestone:before{content:"";position:absolute;right:5px;top:5px;width:11px;height:11px;border-radius:50%;background:#d9e0e9;border:2px solid white;box-shadow:0 0 0 1px #cbd5e1}
 .milestone.done:before{background:#15966b;box-shadow:0 0 0 1px #15966b}
-.milestone.current:before{background:#d8b56b;box-shadow:0 0 0 2px #d8b56b}
+.milestone.current:before{background:#D6AD55;box-shadow:0 0 0 2px #D6AD55}
 .milestone:not(:last-child):after{content:"";position:absolute;right:10px;top:18px;height:calc(100% + 4px);width:1px;background:#e2e8f0}
 .status-pill{font-size:11px;padding:5px 10px;border-radius:30px;background:#f1f5f9;color:#64748b}
-.form-field{width:100%;border:1px solid #dce3ed;border-radius:12px;padding:13px 14px;background:#fff;color:#18243a;font-family:'Tajawal',sans-serif;font-size:14px;outline:none;transition:.2s}
-.form-field:focus{border-color:#5277b8;box-shadow:0 0 0 3px rgba(82,119,184,.12)}
+.form-field{width:100%;border:1px solid #dce3ed;border-radius:12px;padding:13px 14px;background:#fff;color:#14243D;font-family:'Tajawal',sans-serif;font-size:14px;outline:none;transition:.2s}
+.form-field:focus{border-color:#D6AD55;box-shadow:0 0 0 3px rgba(82,119,184,.12)}
 .form-label{display:block;font-size:13px;font-weight:800;color:#334155;margin-bottom:8px}
 @media(max-width:640px){.hero h1{font-size:27px}.hero{border-radius:0 0 28px 28px}}
 @media print{
 .no-print,#notice-modal,header nav,.action-card,footer{display:none!important}
 body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
-.hero{background:#fff!important;color:#111!important}
-.hero p,.hero span{color:#333!important}
+.hero{background:#fff!important;color:#14243D!important}
+.hero p,.hero span{color:#14243D!important}
 }
 </style>
 </head>
@@ -56,12 +56,12 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 <!-- نافذة الترحيب -->
 <div id="notice-modal" class="fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center p-4">
  <div class="bg-white rounded-3xl p-7 max-w-sm w-full text-center shadow-2xl">
-  <div class="w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-5" style="background:#101d36">
-   <i class="fa-solid fa-vault text-4xl" style="color:#d8b56b"></i>
+  <div class="w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-5" style="background:#14243D">
+   <i class="fa-solid fa-vault text-4xl" style="color:#D6AD55"></i>
   </div>
   <h2 class="text-2xl font-black mb-3">أهلاً بكم في خزينة النخبة</h2>
   <p class="text-slate-500 text-sm leading-7 mb-6">منصة التكافل المالي والشفافية، نعمل معاً لخدمة الدفعة وتلبية احتياجات القاعات.</p>
-  <button onclick="closeNoticeModal()" class="w-full py-3.5 rounded-xl text-white font-bold" style="background:#172a4a">
+  <button onclick="closeNoticeModal()" class="w-full py-3.5 rounded-xl text-white font-bold" style="background:#14243D">
    الدخول إلى الخزنة <i class="fa-solid fa-arrow-left mr-2"></i>
   </button>
  </div>
@@ -72,14 +72,14 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
   <nav class="flex items-center justify-between py-5 border-b border-white/10">
    <div class="flex items-center gap-3">
     <div class="w-11 h-11 rounded-xl glass flex items-center justify-center">
-     <i class="fa-solid fa-vault text-xl" style="color:#d8b56b"></i>
+     <i class="fa-solid fa-vault text-xl" style="color:#D6AD55"></i>
     </div>
     <div>
      <h2 class="font-extrabold">خزينة النخبة</h2>
-     <p class="text-xs text-blue-200">الإدارة المالية للدفعة</p>
+     <p class="text-xs text-amber-200">الإدارة المالية للدفعة</p>
     </div>
    </div>
-   <div class="hidden md:flex items-center gap-5 text-sm text-blue-100">
+   <div class="hidden md:flex items-center gap-5 text-sm text-amber-100">
     <a href="#finance">الموقف المالي</a>
     <a href="#goals">الهدف</a>
     <a href="#announcements">الإعلانات</a>
@@ -93,17 +93,17 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 
   <div class="py-12 md:py-16 relative z-10">
    <div class="inline-flex items-center gap-2 text-xs px-4 py-2 rounded-full glass mb-5">
-    <i class="fa-solid fa-shield-halved" style="color:#d8b56b"></i>
+    <i class="fa-solid fa-shield-halved" style="color:#D6AD55"></i>
     الأمانة · التكافل · الشفافية
    </div>
    <h1 class="text-3xl md:text-5xl font-black leading-relaxed">
-    معاً نصنع الفرق، <span style="color:#e4c47e">وبالتكافل نقوى</span>
+    معاً نصنع الفرق، <span style="color:#D6AD55">وبالتكافل نقوى</span>
    </h1>
-   <p class="text-blue-100 text-sm md:text-base mt-3 max-w-2xl leading-8">
+   <p class="text-amber-100 text-sm md:text-base mt-3 max-w-2xl leading-8">
     مساحة مالية لخدمة الدفعة، وتنظيم المساهمات والمصروفات، ومتابعة احتياجات القاعات والمشاريع.
    </p>
    <div class="flex flex-wrap gap-3 mt-7 no-print">
-    <a href="#finance" class="inline-flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-sm" style="background:#d8b56b;color:#17233b">
+    <a href="#finance" class="inline-flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-sm" style="background:#D6AD55;color:#14243D">
      استكشف الموقف المالي <i class="fa-solid fa-arrow-down"></i>
     </a>
     <button onclick="printReport()" class="glass px-5 py-3 rounded-xl text-sm font-bold">
@@ -123,21 +123,21 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
    <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">التقارير المالية</span></div>
    <h2 class="text-2xl font-black">الموقف المالي العام</h2>
   </div>
-  <button onclick="refreshPublicData()" class="text-xs font-bold text-blue-700 bg-blue-50 px-4 py-2 rounded-full no-print">
+  <button onclick="refreshPublicData()" class="text-xs font-bold text-amber-700 bg-amber-50 px-4 py-2 rounded-full no-print">
    <i class="fa-solid fa-rotate ml-1"></i> تحديث البيانات
   </button>
  </div>
 
- <div class="rounded-3xl p-6 md:p-9 text-white" style="background:linear-gradient(120deg,#142440,#233e68)">
+ <div class="rounded-3xl p-6 md:p-9 text-white" style="background:linear-gradient(120deg,#142440,#233A5C)">
   <div class="flex flex-col md:flex-row justify-between gap-6">
    <div>
-    <p class="text-blue-200 text-sm font-semibold"><i class="fa-solid fa-wallet ml-2" style="color:#d8b56b"></i>الرصيد المالي المتاح حالياً</p>
-    <h2 id="current-balance" class="text-4xl md:text-5xl font-black mt-4" style="color:#f1d28f">—</h2>
-    <p class="text-blue-200 text-xs mt-3">جنيه سوداني</p>
+    <p class="text-amber-200 text-sm font-semibold"><i class="fa-solid fa-wallet ml-2" style="color:#D6AD55"></i>الرصيد المالي المتاح حالياً</p>
+    <h2 id="current-balance" class="text-4xl md:text-5xl font-black mt-4" style="color:#E8C978">—</h2>
+    <p class="text-amber-200 text-xs mt-3">جنيه سوداني</p>
    </div>
    <div class="glass rounded-2xl p-4 self-start">
-    <i class="fa-solid fa-chart-line text-3xl" style="color:#d8b56b"></i>
-    <p class="text-xs text-blue-100 mt-2">الرصيد المحسوب</p>
+    <i class="fa-solid fa-chart-line text-3xl" style="color:#D6AD55"></i>
+    <p class="text-xs text-amber-100 mt-2">الرصيد المحسوب</p>
     <p class="text-sm font-bold mt-1">الوارد ناقص المنصرف</p>
    </div>
   </div>
@@ -168,7 +168,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 
  <div class="card p-5 mt-4 flex flex-wrap items-center justify-between gap-3">
   <div class="flex items-center gap-3">
-   <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center"><i class="fa-regular fa-clock"></i></div>
+   <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center"><i class="fa-regular fa-clock"></i></div>
    <div><p class="font-bold text-sm">حالة تحديث البيانات المالية</p><p class="text-xs text-slate-400 mt-1">حالة الاتصال بقاعدة البيانات المشتركة</p></div>
   </div>
   <span id="last-update" class="text-sm font-bold text-slate-500">جاري التحميل...</span>
@@ -192,7 +192,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
   <div class="space-y-6">
    <div><div class="flex justify-between text-sm mb-2"><span class="font-bold">إجمالي الوارد</span><strong id="chart-income-label" class="text-emerald-700">—</strong></div><div class="chart-bar"><span id="chart-income-bar" style="width:0%;background:#15966b"></span></div></div>
    <div><div class="flex justify-between text-sm mb-2"><span class="font-bold">إجمالي المصروفات</span><strong id="chart-expenses-label" class="text-rose-600">—</strong></div><div class="chart-bar"><span id="chart-expenses-bar" style="width:0%;background:#e87979"></span></div></div>
-   <div><div class="flex justify-between text-sm mb-2"><span class="font-bold">الرصيد المتبقي</span><strong id="chart-balance-label" class="text-blue-700">—</strong></div><div class="chart-bar"><span id="chart-balance-bar" style="width:0%;background:#5277b8"></span></div></div>
+   <div><div class="flex justify-between text-sm mb-2"><span class="font-bold">الرصيد المتبقي</span><strong id="chart-balance-label" class="text-amber-700">—</strong></div><div class="chart-bar"><span id="chart-balance-bar" style="width:0%;background:#D6AD55"></span></div></div>
   </div>
   <p class="text-xs text-slate-400 mt-5">الرسم يوضح الإجماليات المتاحة حالياً، وليس حركة شهرية.</p>
  </div>
@@ -290,11 +290,11 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
    <div class="flex justify-between items-center mb-7"><div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-xl"><i class="fa-solid fa-credit-card"></i></div><i class="fa-solid fa-arrow-left opacity-70"></i></div>
    <h3 class="text-xl font-extrabold">طرق الدفع والمساهمة</h3><p class="text-xs text-white/80 leading-7 mt-2">تعرف على وسائل التحويل والمساهمة في دعم الخزنة.</p>
   </a>
-  <a href="student-portal.html?type=support" class="action-card" style="background:linear-gradient(135deg,#344f87,#233e68)">
+  <a href="student-portal.html?type=support" class="action-card" style="background:linear-gradient(135deg,#233A5C,#233A5C)">
    <div class="flex justify-between items-center mb-7"><div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-xl"><i class="fa-solid fa-hand-holding-heart"></i></div><i class="fa-solid fa-arrow-left opacity-70"></i></div>
    <h3 class="text-xl font-extrabold">طلب دعم ومساعدة</h3><p class="text-xs text-white/80 leading-7 mt-2">تقديم طلب مساعدة مع مراعاة خصوصية الطالب.</p>
   </a>
-  <a href="student-portal.html?type=issue" class="action-card" style="background:linear-gradient(135deg,#384253,#172234)">
+  <a href="student-portal.html?type=issue" class="action-card" style="background:linear-gradient(135deg,#14243D,#101A2D)">
    <div class="flex justify-between items-center mb-7"><div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-xl"><i class="fa-solid fa-screwdriver-wrench"></i></div><i class="fa-solid fa-arrow-left opacity-70"></i></div>
    <h3 class="text-xl font-extrabold">الإبلاغ عن نواقص القاعات</h3><p class="text-xs text-white/80 leading-7 mt-2">ساهم في تحديد احتياجات القاعات والمستلزمات.</p>
   </a>
@@ -308,7 +308,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
  <div class="card p-6">
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
    <div class="rounded-xl bg-slate-50 p-5">
-    <div class="flex items-center justify-between"><span class="text-sm font-bold">طلبات الدعم</span><i class="fa-solid fa-hand-holding-heart text-blue-600"></i></div>
+    <div class="flex items-center justify-between"><span class="text-sm font-bold">طلبات الدعم</span><i class="fa-solid fa-hand-holding-heart text-amber-700"></i></div>
     <p class="text-2xl font-black mt-3">—</p><span class="text-xs text-slate-400">لا تُعرض أعدادها قبل إعداد إحصاءات عامة آمنة.</span>
    </div>
    <div class="rounded-xl bg-slate-50 p-5">
@@ -343,7 +343,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
  <h2 class="text-2xl font-black mb-4">صندوق الاقتراحات والشكاوى</h2>
  <div class="card p-6">
   <div class="flex items-start gap-4">
-   <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl shrink-0"><i class="fa-regular fa-lightbulb"></i></div>
+   <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl shrink-0"><i class="fa-regular fa-lightbulb"></i></div>
    <div>
     <h3 class="font-extrabold">ساهم في تطوير عمل الخزنة</h3>
     <p class="text-sm text-slate-500 leading-7 mt-2">نرحب بمقترحاتكم وملاحظاتكم وشكاواكم التي تساعد على تحسين الخدمات وتنظيم العمل المالي. تصل رسالتك مباشرة إلى مسؤول متابعة الصندوق.</p>
@@ -388,9 +388,9 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 
 <!-- 14 التواصل -->
 <section id="contact">
- <div class="rounded-3xl p-7 md:p-9 text-white" style="background:linear-gradient(120deg,#142440,#233e68)">
+ <div class="rounded-3xl p-7 md:p-9 text-white" style="background:linear-gradient(120deg,#142440,#233A5C)">
   <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-   <div><h2 class="text-2xl font-black">تواصل مع الأمين المالي</h2><p class="text-sm text-blue-100 leading-7 mt-2">للاستفسارات المالية ومتابعة الأمور المتعلقة بالحسابات والمساهمات.</p></div>
+   <div><h2 class="text-2xl font-black">تواصل مع الأمين المالي</h2><p class="text-sm text-amber-100 leading-7 mt-2">للاستفسارات المالية ومتابعة الأمور المتعلقة بالحسابات والمساهمات.</p></div>
    <a href="https://wa.me/249116314682" target="_blank" rel="noopener" class="no-print bg-emerald-600 hover:bg-emerald-700 px-5 py-3 rounded-xl font-bold text-sm"><i class="fa-brands fa-whatsapp ml-2"></i>التواصل مع الأمين المالي</a>
   </div>
  </div>
@@ -410,20 +410,20 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 </section>
 
 <section class="rounded-3xl p-7 md:p-9 text-center" style="background:#eaf0f8">
- <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center text-2xl mb-4" style="background:#172a4a;color:#e2c47e"><i class="fa-solid fa-handshake-angle"></i></div>
- <h2 class="text-xl md:text-2xl font-black" style="color:#172a4a">الخزنة أمانة الجميع</h2>
+ <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center text-2xl mb-4" style="background:#14243D;color:#e2c47e"><i class="fa-solid fa-handshake-angle"></i></div>
+ <h2 class="text-xl md:text-2xl font-black" style="color:#14243D">الخزنة أمانة الجميع</h2>
  <p class="text-sm text-slate-600 leading-8 max-w-xl mx-auto mt-3">كل مساهمة تصنع فرقاً، وكل مبلغ يُصرف يجب أن يخدم هدفاً. بالشفافية والتعاون نستطيع بناء بيئة جامعية أفضل للجميع.</p>
  <div class="gold-line mx-auto mt-5"></div>
 </section>
 
 </main>
 
-<footer class="mt-10 text-white" style="background:#101d36">
+<footer class="mt-10 text-white" style="background:#14243D">
  <div class="max-w-6xl mx-auto px-5 py-8 text-center">
-  <div class="flex items-center justify-center gap-2 mb-3"><i class="fa-solid fa-vault text-xl" style="color:#d8b56b"></i><h3 class="font-extrabold">خزينة النخبة الشاملة</h3></div>
-  <p class="text-xs text-blue-200 leading-7">منصة التكافل المالي وخدمة الدفعة</p>
+  <div class="flex items-center justify-center gap-2 mb-3"><i class="fa-solid fa-vault text-xl" style="color:#D6AD55"></i><h3 class="font-extrabold">خزينة النخبة الشاملة</h3></div>
+  <p class="text-xs text-amber-200 leading-7">منصة التكافل المالي وخدمة الدفعة</p>
   <div class="mt-5 no-print">
-   <a href="admin.html" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-extrabold transition hover:-translate-y-0.5" style="background:#d8b56b;color:#17233b">
+   <a href="admin.html" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-extrabold transition hover:-translate-y-0.5" style="background:#D6AD55;color:#14243D">
     <i class="fa-solid fa-user-shield"></i> دخول لوحة الإدارة
    </a>
   </div>

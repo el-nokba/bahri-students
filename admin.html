@@ -30,12 +30,12 @@
      شاشة تسجيل الدخول
 ========================= -->
 
-<section id="login-section" class="min-h-screen flex items-center justify-center px-4 py-10 bg-gradient-to-br from-slate-950 via-indigo-950 to-blue-950">
+<section id="login-section" class="min-h-screen flex items-center justify-center px-4 py-10 bg-gradient-to-br from-slate-950 via-slate-800 to-slate-900">
 
     <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl p-7 md:p-9">
 
         <div class="text-center mb-8">
-            <div class="w-20 h-20 rounded-2xl bg-indigo-950 text-amber-400 flex items-center justify-center mx-auto mb-4 text-3xl">
+            <div class="w-20 h-20 rounded-2xl bg-slate-900 text-amber-400 flex items-center justify-center mx-auto mb-4 text-3xl">
                 <i class="fa-solid fa-vault"></i>
             </div>
 
@@ -58,7 +58,7 @@
                     required
                     autocomplete="username"
                     placeholder="أدخل بريدك الإلكتروني"
-                    class="w-full border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600 bg-slate-50">
+                    class="w-full border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500 bg-slate-50">
             </div>
 
             <div>
@@ -69,7 +69,7 @@
                     required
                     autocomplete="current-password"
                     placeholder="أدخل كلمة المرور"
-                    class="w-full border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600 bg-slate-50">
+                    class="w-full border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500 bg-slate-50">
             </div>
 
             <div id="login-error" class="hidden text-red-600 text-sm bg-red-50 p-3 rounded-xl"></div>
@@ -77,7 +77,7 @@
             <button
                 id="login-button"
                 type="submit"
-                class="w-full bg-indigo-950 hover:bg-indigo-900 text-white font-bold py-3.5 rounded-xl transition">
+                class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl transition">
                 <i class="fa-solid fa-right-to-bracket ml-2"></i>
                 تسجيل الدخول
             </button>
@@ -98,7 +98,7 @@
 
 <div id="admin-section" class="hidden-section">
 
-    <header class="bg-gradient-to-r from-slate-950 via-indigo-950 to-blue-950 text-white shadow-lg">
+    <header class="bg-gradient-to-r from-slate-950 via-slate-800 to-slate-900 text-white shadow-lg">
 
         <div class="max-w-6xl mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-4">
 
@@ -142,7 +142,7 @@
         <!-- حالة الاتصال -->
 
         <div id="connection-status" class="bg-white border border-slate-200 rounded-xl p-4 text-sm flex items-center gap-2">
-            <i class="fa-solid fa-circle-notch fa-spin text-indigo-600"></i>
+            <i class="fa-solid fa-circle-notch fa-spin text-amber-700"></i>
             جاري تحميل بيانات الخزينة...
         </div>
 
@@ -164,7 +164,7 @@
                 </div>
 
                 <button onclick="loadDashboard()"
-                        class="text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-xl text-sm font-bold">
+                        class="text-amber-800 bg-amber-50 hover:bg-amber-100 px-4 py-2 rounded-xl text-sm font-bold">
                     <i class="fa-solid fa-rotate ml-1"></i>
                     تحديث
                 </button>
@@ -186,7 +186,7 @@
 
                 <div class="stat-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
                     <p class="text-xs text-slate-500 font-bold">الرصيد الحالي</p>
-                    <h3 id="current-balance" class="text-2xl font-black text-indigo-700 mt-3">--</h3>
+                    <h3 id="current-balance" class="text-2xl font-black text-amber-800 mt-3">--</h3>
                     <p class="text-xs text-slate-400 mt-2">جنيه سوداني</p>
                 </div>
 
@@ -202,7 +202,7 @@
 
                 <div class="flex justify-between items-center mb-3">
                     <span class="font-bold text-sm">نسبة تحقيق الهدف</span>
-                    <span id="goal-percentage" class="font-black text-indigo-700">--</span>
+                    <span id="goal-percentage" class="font-black text-amber-800">--</span>
                 </div>
 
                 <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
@@ -226,7 +226,7 @@
             <div class="mb-6 border-b border-slate-100 pb-4">
 
                 <h2 class="text-xl font-black text-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-money-bill-transfer text-indigo-600"></i>
+                    <i class="fa-solid fa-money-bill-transfer text-amber-700"></i>
                     تسجيل عملية مالية جديدة
                 </h2>
 
@@ -245,7 +245,7 @@
                         <label class="block text-xs font-bold mb-2">نوع العملية *</label>
 
                         <select id="transaction-type" required
-                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600">
+                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500">
 
                             <option value="income">إيراد / مساهمة</option>
                             <option value="expense">مصروف</option>
@@ -263,7 +263,7 @@
                                step="1"
                                required
                                placeholder="مثال: 10000"
-                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600">
+                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500">
                     </div>
 
 
@@ -273,7 +273,7 @@
                         <input id="transaction-category"
                                type="text"
                                placeholder="مثال: مساهمات، قاعات، طباعة..."
-                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600">
+                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500">
                     </div>
 
 
@@ -283,7 +283,7 @@
                         <input id="transaction-date"
                                type="date"
                                required
-                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600">
+                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500">
                     </div>
 
 
@@ -294,7 +294,7 @@
                                   rows="3"
                                   required
                                   placeholder="اكتب تفاصيل العملية..."
-                                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600"></textarea>
+                                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500"></textarea>
                     </div>
 
                 </div>
@@ -306,13 +306,13 @@
                     <input id="contributor-name"
                            type="text"
                            placeholder="اسم المساهم"
-                           class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600">
+                           class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500">
                 </div>
 
 
                 <button id="save-transaction-button"
                         type="submit"
-                        class="w-full bg-indigo-950 hover:bg-indigo-900 text-white font-bold py-3.5 rounded-xl transition">
+                        class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl transition">
 
                     <i class="fa-solid fa-floppy-disk ml-2"></i>
                     حفظ العملية المالية
@@ -342,7 +342,7 @@
                 </div>
 
                 <button onclick="loadTransactions()"
-                        class="text-indigo-700 bg-indigo-50 px-4 py-2 rounded-xl text-sm font-bold">
+                        class="text-amber-800 bg-amber-50 px-4 py-2 rounded-xl text-sm font-bold">
                     <i class="fa-solid fa-rotate ml-1"></i>
                     تحديث السجل
                 </button>
@@ -394,7 +394,7 @@
             <div class="mb-6 border-b border-slate-100 pb-4">
 
                 <h2 class="text-xl font-black text-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-indigo-600"></i>
+                    <i class="fa-solid fa-list-check text-amber-700"></i>
                     إدارة احتياجات القاعات والنواقص
                 </h2>
 
@@ -416,7 +416,7 @@
                                type="text"
                                required
                                placeholder="مثال: قاعة 2 أو السبورة"
-                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600">
+                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500">
                     </div>
 
 
@@ -424,7 +424,7 @@
                         <label class="block text-xs font-bold mb-2">حالة البند *</label>
 
                         <select id="new-status"
-                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600">
+                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500">
 
                             <option value="pending">قيد التوفير</option>
                             <option value="in_progress">قيد التنفيذ</option>
@@ -441,7 +441,7 @@
                                type="number"
                                min="0"
                                placeholder="المبلغ بالجنيه"
-                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600">
+                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500">
                     </div>
 
                 </div>
@@ -454,7 +454,7 @@
                               rows="3"
                               required
                               placeholder="اكتب وصف الاحتياج أو العطل..."
-                              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600"></textarea>
+                              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500"></textarea>
                 </div>
 
 
@@ -551,7 +551,7 @@ function showConnection(message, type = 'info') {
     const element = document.getElementById('connection-status');
 
     const colors = {
-        info: 'bg-blue-50 text-blue-800 border-blue-200',
+        info: 'bg-slate-50 text-slate-800 border-slate-200',
         success: 'bg-emerald-50 text-emerald-800 border-emerald-200',
         error: 'bg-red-50 text-red-800 border-red-200'
     };
