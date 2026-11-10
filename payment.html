@@ -65,185 +65,150 @@
 
 
     <!-- المحتوى الرئيسي -->
-    <main class="max-w-3xl mx-auto px-4 mt-8 space-y-6">
+    <main class="max-w-3xl mx-auto px-4 mt-7 space-y-6">
 
-        <!-- المقدمة -->
-        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center">
-
-            <div class="w-12 h-12 bg-amber-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
-                <i class="fa-solid fa-hand-holding-dollar"></i>
+        <!-- رسالة المساهمة الرئيسية -->
+        <section class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white shadow-xl">
+            <div class="absolute -top-16 -left-12 w-48 h-48 rounded-full bg-amber-400/10 blur-2xl"></div>
+            <div class="absolute -bottom-20 -right-10 w-56 h-56 rounded-full bg-amber-500/10 blur-2xl"></div>
+            <div class="relative p-7 md:p-9 text-center">
+                <div class="mx-auto mb-5 w-16 h-16 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center text-2xl shadow-lg shadow-amber-500/20">
+                    <i class="fa-solid fa-hands-holding-circle"></i>
+                </div>
+                <span class="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-white/5 px-4 py-1.5 text-xs font-bold text-amber-200 mb-4">
+                    <i class="fa-solid fa-star"></i>
+                    دفعتنا مسؤوليتنا جميعاً
+                </span>
+                <h2 class="text-2xl md:text-3xl font-black leading-relaxed">
+                    مساهمتك اليوم… <span class="text-amber-300">أثرٌ يبقى بيننا</span>
+                </h2>
+                <p class="text-sm md:text-base text-slate-200 leading-8 mt-4 max-w-xl mx-auto">
+                    الخزينة ما بتقوم على شخص واحد؛ بتقوم بتكاتفنا. مساهمة بسيطة منك، مع مساهمات زملائك، بتساعدنا نوفر احتياجات الدفعة ونقيف مع بعض وقت الحاجة.
+                </p>
+                <p class="text-xs text-amber-100/80 mt-3">ساهم بالقدر الممكن ليك؛ المهم نكون كلنا جزء من الأثر.</p>
+                <a href="#payment-options" class="inline-flex items-center justify-center gap-3 mt-7 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm px-7 py-3.5 rounded-xl transition shadow-lg shadow-amber-500/20">
+                    <i class="fa-solid fa-heart"></i>
+                    أبدأ المساهمة الآن
+                    <i class="fa-solid fa-arrow-down text-xs"></i>
+                </a>
             </div>
+            <div class="relative grid grid-cols-3 border-t border-white/10 bg-white/[0.04]">
+                <div class="p-4 text-center border-l border-white/10">
+                    <i class="fa-solid fa-people-group text-amber-300 text-lg"></i>
+                    <p class="text-xs font-bold mt-2">تكافل</p>
+                </div>
+                <div class="p-4 text-center border-l border-white/10">
+                    <i class="fa-solid fa-handshake-angle text-amber-300 text-lg"></i>
+                    <p class="text-xs font-bold mt-2">تعاون</p>
+                </div>
+                <div class="p-4 text-center">
+                    <i class="fa-solid fa-eye text-amber-300 text-lg"></i>
+                    <p class="text-xs font-bold mt-2">شفافية</p>
+                </div>
+            </div>
+        </section>
 
-            <h2 class="text-xl font-black text-slate-900">
-                المساهمة والدفع المالي
-            </h2>
+        <!-- خطوات المساهمة -->
+        <section class="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm">
+            <div class="text-center mb-5">
+                <h3 class="font-black text-slate-900 text-lg">المساهمة في 3 خطوات بسيطة</h3>
+                <p class="text-xs text-slate-500 mt-1">اختار وسيلة الدفع المناسبة واتبع الخطوات</p>
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+                <div class="text-center">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-black">1</div>
+                    <p class="text-xs font-bold text-slate-800 mt-2">اختار الحساب</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-black">2</div>
+                    <p class="text-xs font-bold text-slate-800 mt-2">حوّل المساهمة</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-black">3</div>
+                    <p class="text-xs font-bold text-slate-800 mt-2">أرسل الإيصال</p>
+                </div>
+            </div>
+        </section>
 
-            <p class="text-xs md:text-sm text-amber-800 mt-2 leading-relaxed">
-                يمكنكم تحويل الاشتراكات أو المساهمات المالية لدعم خزينة الدفعة وصندوق التكافل عبر الحسابات الرسمية أدناه
-                (باسم:
-                <span class="font-bold">الياقوت الزين محمد الزين</span>).
-            </p>
-
-        </div>
-
-
-        <!-- قائمة الحسابات -->
-        <div class="space-y-4">
-
+        <!-- الحسابات -->
+        <section id="payment-options" class="scroll-mt-5 space-y-4">
+            <div class="text-center py-2">
+                <span class="text-amber-700 text-xs font-black">اختر وسيلة الدفع</span>
+                <h3 class="text-xl font-black text-slate-900 mt-1">حسابات المساهمة الرسمية</h3>
+                <p class="text-xs text-slate-500 mt-2">كل الطرق متاحة؛ اختار الأسهل بالنسبة ليك</p>
+            </div>
 
             <!-- بنكك -->
-            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-amber-300 hover:shadow-md transition">
                 <div class="flex items-center gap-4">
-
-                    <img
-                        src="images/bankak.jpg"
-                        alt="شعار بنكك"
-                        class="payment-logo"
-                        onerror="this.style.display='none'"
-                    >
-
+                    <img src="images/bankak.jpg" alt="شعار بنكك" class="payment-logo" onerror="this.style.display='none'">
                     <div>
-                        <h3 class="font-bold text-slate-800 text-base">
-                            بنكك
-                        </h3>
-
-                        <p class="text-xs text-slate-500 mt-0.5">
-                            الاسم: الياقوت الزين محمد الزين
-                        </p>
-
-                        <p class="account-number text-base font-black text-slate-900 mt-1"
-                           id="acc-bankk">
-                            5675877
-                        </p>
+                        <h3 class="font-black text-slate-900 text-base">بنكك</h3>
+                        <p class="text-xs text-slate-500 mt-1">باسم: الياقوت الزين محمد الزين</p>
+                        <p class="account-number text-lg font-black text-slate-950 mt-1" id="acc-bankk">5675877</p>
                     </div>
-
                 </div>
-
-                <button
-                    onclick="copyAccount('acc-bankk')"
-                    class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-2">
-
-                    <i class="fa-solid fa-copy"></i>
-                    نسخ الرقم
-
+                <button onclick="copyAccount('acc-bankk')" class="bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white text-xs font-bold px-5 py-3 rounded-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-copy"></i> نسخ رقم الحساب
                 </button>
-
             </div>
-
 
             <!-- أوكاش -->
-            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-amber-300 hover:shadow-md transition">
                 <div class="flex items-center gap-4">
-
-                    <img
-                        src="images/ocash.jpg"
-                        alt="شعار أوكاش"
-                        class="payment-logo"
-                        onerror="this.style.display='none'"
-                    >
-
+                    <img src="images/ocash.jpg" alt="شعار أوكاش" class="payment-logo" onerror="this.style.display='none'">
                     <div>
-                        <h3 class="font-bold text-slate-800 text-base">
-                            أوكاش
-                        </h3>
-
-                        <p class="text-xs text-slate-500 mt-0.5">
-                            الاسم: الياقوت الزين محمد الزين
-                        </p>
-
-                        <p class="account-number text-base font-black text-slate-900 mt-1"
-                           id="acc-ocash">
-                            1402198
-                        </p>
+                        <h3 class="font-black text-slate-900 text-base">أوكاش</h3>
+                        <p class="text-xs text-slate-500 mt-1">باسم: الياقوت الزين محمد الزين</p>
+                        <p class="account-number text-lg font-black text-slate-950 mt-1" id="acc-ocash">1402198</p>
                     </div>
-
                 </div>
-
-                <button
-                    onclick="copyAccount('acc-ocash')"
-                    class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-2">
-
-                    <i class="fa-solid fa-copy"></i>
-                    نسخ الرقم
-
+                <button onclick="copyAccount('acc-ocash')" class="bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white text-xs font-bold px-5 py-3 rounded-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-copy"></i> نسخ رقم الحساب
                 </button>
-
             </div>
-
 
             <!-- فوري -->
-            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-amber-300 hover:shadow-md transition">
                 <div class="flex items-center gap-4">
-
-                    <img
-                        src="images/fawry.jpg"
-                        alt="شعار فوري"
-                        class="payment-logo"
-                        onerror="this.style.display='none'"
-                    >
-
+                    <img src="images/fawry.jpg" alt="شعار فوري" class="payment-logo" onerror="this.style.display='none'">
                     <div>
-                        <h3 class="font-bold text-slate-800 text-base">
-                            فوري
-                        </h3>
-
-                        <p class="text-xs text-slate-500 mt-0.5">
-                            الاسم: الياقوت الزين محمد الزين
-                        </p>
-
-                        <p class="account-number text-base font-black text-slate-900 mt-1"
-                           id="acc-fawry">
-                            52428676
-                        </p>
+                        <h3 class="font-black text-slate-900 text-base">فوري</h3>
+                        <p class="text-xs text-slate-500 mt-1">باسم: الياقوت الزين محمد الزين</p>
+                        <p class="account-number text-lg font-black text-slate-950 mt-1" id="acc-fawry">52428676</p>
                     </div>
-
                 </div>
-
-                <button
-                    onclick="copyAccount('acc-fawry')"
-                    class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-2">
-
-                    <i class="fa-solid fa-copy"></i>
-                    نسخ الرقم
-
+                <button onclick="copyAccount('acc-fawry')" class="bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white text-xs font-bold px-5 py-3 rounded-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-copy"></i> نسخ رقم الحساب
                 </button>
-
             </div>
-
-        </div>
-
+        </section>
 
         <!-- تأكيد إرسال الإيصال -->
-        <div class="bg-emerald-900 text-white rounded-2xl p-6 text-center space-y-3 shadow-sm">
-
-            <h3 class="font-bold text-base">
-                هل قمت بالتحويل؟
-            </h3>
-
-            <p class="text-xs text-emerald-200">
-                الرجاء إرسال صورة إيصال التحويل عبر الواتساب للأمين المالي لتسجيل المساهمة رسمياً.
+        <section class="relative overflow-hidden bg-gradient-to-br from-slate-950 to-slate-800 text-white rounded-2xl p-6 md:p-7 text-center space-y-3 shadow-lg">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center text-2xl">
+                <i class="fa-solid fa-receipt"></i>
+            </div>
+            <h3 class="font-black text-lg">حوّلت مساهمتك؟ خلّينا نوثّقها</h3>
+            <p class="text-sm text-slate-300 leading-7 max-w-lg mx-auto">
+                أرسل صورة إيصال التحويل للأمين المالي عبر واتساب حتى يتم تسجيل مساهمتك رسمياً ضمن حسابات الخزينة.
             </p>
-
-            <a
-                href="https://wa.me/249116314682?text=%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D9%82%D9%85%D8%AA%20%D8%A8%D8%AA%D8%AD%D9%88%D9%8A%D9%84%20%D9%85%D8%A8%D9%84%D8%BA%20%D9%85%D8%A7%D9%84%D9%8A%20%D9%88%D9%87%D8%B0%D8%A7%20%D9%87%D9%88%20%D8%A5%D9%8A%D8%B5%D8%A7%D9%84%20%D8%A7%D9%84%D8%AA%D8%AD%D9%88%D9%8A%D9%84:"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-6 py-3 rounded-xl transition shadow-md">
-
+            <a href="https://wa.me/249116314682?text=%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D9%82%D9%85%D8%AA%20%D8%A8%D8%AA%D8%AD%D9%88%D9%8A%D9%84%20%D9%85%D8%A8%D9%84%D8%BA%20%D9%85%D8%A7%D9%84%D9%8A%20%D9%88%D9%87%D8%B0%D8%A7%20%D9%87%D9%88%20%D8%A5%D9%8A%D8%B5%D8%A7%D9%84%20%D8%A7%D9%84%D8%AA%D8%AD%D9%88%D9%8A%D9%84:"
+               target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm px-6 py-3.5 rounded-xl transition shadow-md">
                 <i class="fa-brands fa-whatsapp text-lg"></i>
-                إرسال إيصال التحويل للأمين المالي
-
+                إرسال إيصال التحويل
             </a>
+        </section>
 
-        </div>
+        <p class="text-center text-xs text-slate-500 leading-6 px-4">
+            مساهمتك اختيارية وبحسب استطاعتك، وكل مساهمة محل تقدير. شكراً لأنك جزء من تكافل دفعتنا.
+        </p>
 
     </main>
 
 
-    <!-- الفوتر -->
+        <!-- الفوتر -->
     <footer class="mt-12 text-center text-slate-400 text-xs">
 
         <p>
