@@ -6,7 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة إدارة خزينة النخبة</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+async function loadStudentPortalRequests() {
+ const box=document.getElementById('student-requests-list');
+ if(!box || !currentUser || !['admin','treasurer'].includes(currentRole)) return;
+ try {
+  const {data,error}=await db.from('student_portal_requests').select('id,request_type,requester_name,contact,location,details,status,created_at').order('created_at',{ascending:false}).limit(100);
+  if(error) throw error;
+  if(!data?.length){box.textContent='لا توجد طلبات أو بلاغات حتى الآن.';return;}
+  const labels={pending:'قيد المراجعة',accepted:'مقبول',rejected:'مرفوض',completed:'مكتمل'};
+  box.innerHTML=data.map(x=>`<article class="border border-slate-200 rounded-xl p-4 space-y-3">
+   <div class="flex justify-between flex-wrap gap-2"><strong>${x.request_type==='support'?'طلب دعم سري':'بلاغ قاعة'}</strong><span class="text-xs text-slate-400">${escapeHTML(new Date(x.created_at).toLocaleString('ar'))}</span></div>
+   <p class="text-sm"><b>الاسم:</b> ${escapeHTML(x.requester_name||'لم يذكر اسمه')}</p>
+   <p class="text-sm"><b>التواصل:</b> <span dir="ltr">${escapeHTML(x.contact||'غير متوفر')}</span></p>
+   <p class="text-sm"><b>المكان:</b> ${escapeHTML(x.location||'—')}</p>
+   <p class="text-sm whitespace-pre-wrap leading-7"><b>التفاصيل:</b> ${escapeHTML(x.details)}</p>
+   <div class="flex gap-2 items-center flex-wrap"><label class="text-xs font-bold">الحالة</label><select class="border rounded-lg p-2 text-xs" onchange="updateStudentRequestStatus('${x.id}',this.value)">
+   <option value="pending" ${x.status==='pending'?'selected':''}>قيد المراجعة</option><option value="accepted" ${x.status==='accepted'?'selected':''}>مقبول</option><option value="rejected" ${x.status==='rejected'?'selected':''}>مرفوض</option><option value="completed" ${x.status==='completed'?'selected':''}>مكتمل</option></select></div>
+  </article>`).join('');
+ } catch(e){box.textContent='تعذر تحميل الطلبات: '+e.message;}
+}
+async function updateStudentRequestStatus(id,status){
+ if(!['pending','accepted','rejected','completed'].includes(status))return;
+ const {error}=await db.from('student_portal_requests').update({status}).eq('id',id);
+ if(error){alert('تعذر تحديث الحالة: '+error.message);return;}
+ await loadStudentPortalRequests();
+}
+</script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -487,6 +513,12 @@
         </section>
 
 
+        <section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8">
+            <h2 class="text-xl font-black mb-2"><i class="fa-solid fa-user-lock text-amber-700 ml-2"></i>طلبات الطلاب والبلاغات السرية</h2>
+            <p class="text-xs text-slate-500 mb-5">الأسماء ووسائل التواصل والتفاصيل لا تظهر إلا للإدارة المصرح لها.</p>
+            <div id="student-requests-list" class="space-y-3">جاري تحميل الطلبات...</div>
+        </section>
+
         <!-- تنبيه أمني -->
 
         <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900">
@@ -740,6 +772,7 @@ async function loadDashboard() {
 
         await loadTransactions();
         await loadIssues();
+        await loadStudentPortalRequests();
 
         showConnection('تم الاتصال بقاعدة البيانات وتحميل البيانات بنجاح.', 'success');
 
