@@ -1,38 +1,184 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بوابة الطالب - خزينة النخبة</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>body{font-family:'Tajawal',sans-serif;background:#f8fafc}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الخدمات والطلبات - خزينة النخبة</title>
+    <!-- مكتبة Tailwind CSS للتصميم -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- خط تجوال من جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f8fafc;
+        }
+    </style>
 </head>
-<body class="min-h-screen text-slate-800">
-  <header class="bg-gradient-to-r from-slate-950 via-slate-800 to-slate-900 text-white shadow-lg">
-    <div class="max-w-3xl mx-auto px-4 py-6 flex items-center justify-between gap-3">
-      <a href="index.html" class="inline-flex items-center gap-2 text-amber-200 hover:text-white text-sm font-bold bg-white/10 px-3 py-2 rounded-xl">
-        <i class="fa-solid fa-arrow-right"></i> العودة للرئيسية
-      </a>
-      <h1 class="text-lg font-bold">بوابة الطالب</h1>
-    </div>
-  </header>
-  <main class="max-w-3xl mx-auto px-4 py-12">
-    <section class="bg-white rounded-3xl border border-slate-100 shadow-sm p-7 md:p-10 text-center">
-      <div class="w-16 h-16 rounded-2xl bg-slate-900 text-amber-400 flex items-center justify-center mx-auto mb-5 text-2xl">
-        <i class="fa-solid fa-user-graduate"></i>
-      </div>
-      <h2 class="text-2xl font-black text-slate-900">مرحباً بك في بوابة الطالب</h2>
-      <p class="text-slate-500 leading-8 mt-4">
-        تم إيقاف استقبال طلبات الدعم والبلاغات من خلال النماذج الإلكترونية.
-        تتولى الإدارة تسجيل الاحتياجات ومتابعتها مباشرة من لوحة التحكم، مع الحفاظ على خصوصية البيانات.
-      </p>
-      <a href="index.html" class="inline-flex items-center justify-center gap-2 mt-7 bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3 rounded-xl">
-        <i class="fa-solid fa-house"></i> الرجوع إلى الصفحة الرئيسية
-      </a>
-    </section>
-  </main>
-  <footer class="text-center text-slate-400 text-xs py-8">خزينة النخبة الشاملة © 2026</footer>
+<body class="text-slate-800 pb-12">
+
+    <!-- الهيدر العلوي -->
+    <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-lg">
+        <div class="max-w-3xl mx-auto px-4 py-6 flex items-center justify-between">
+            <a href="index.html" class="inline-flex items-center gap-2 text-amber-200 hover:text-white transition text-sm font-bold bg-white/10 px-3 py-2 rounded-xl backdrop-blur-sm">
+                <i class="fa-solid fa-arrow-right"></i>
+                العودة للرئيسية
+            </a>
+            <h1 class="text-lg font-bold">بوابة الطالب التفاعلية</h1>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="max-w-3xl mx-auto px-4 mt-6">
+
+        <!-- أزرار التبديل بين النماذج -->
+        <div class="flex rounded-2xl bg-slate-200 p-1 mb-6">
+            <button onclick="switchTab('support')" id="btn-support" class="flex-1 py-3 text-sm font-bold rounded-xl transition bg-white text-slate-900 shadow-sm flex items-center justify-center gap-2">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                طلب دعم سري (تعثر)
+            </button>
+            <button onclick="switchTab('issue')" id="btn-issue" class="flex-1 py-3 text-sm font-bold rounded-xl transition text-slate-600 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-wrench"></i>
+                بلاغ عن نقص بقاعة
+            </button>
+        </div>
+
+        <!-- 1. نموذج طلب الدعم السري -->
+        <div id="form-support" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8">
+            <div class="mb-6 border-b border-slate-100 pb-4">
+                <h2 class="text-xl font-black text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+                    طلب دعم مالي أو مساعدة طارئة
+                </h2>
+                <p class="text-slate-500 text-xs mt-1">
+                    هذا الطلب سري تماماً ويصل حصرياً عبر الواتساب للأمين المالي. لا يتم نشر أي اسم أو تفاصيل شخصية نهائياً. الخصوصية خط أحمر.
+                </p>
+            </div>
+
+            <form id="support-form" onsubmit="submitSupport(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">الاسم أو اللقب (اختياري تماماً - يمكنك تركها فارغة)</label>
+                    <input type="text" id="sup-name" placeholder="مثال: طالب متعثر / أو اتركها فارغة" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">نوع المساعدة المطلوبة أو تفاصيل التعثر *</label>
+                    <textarea id="sup-details" rows="4" required placeholder="اشرح باختصار حالتك أو نوع الدعم الذي تحتاجه..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">طريقة للتواصل معك سرا (رقم هاتف أو معرف تليجرام/واتساب)</label>
+                    <input type="text" id="sup-contact" required placeholder="رقم الهاتف أو المعرف الخاص بك..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500">
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    إرسال الطلب بسرية تامة عبر الواتساب
+                </button>
+            </form>
+        </div>
+
+        <!-- 2. نموذج الإبلاغ عن نقص القاعات -->
+        <div id="form-issue" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 hidden">
+            <div class="mb-6 border-b border-slate-100 pb-4">
+                <h2 class="text-xl font-black text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-500"></i>
+                    الإبلاغ عن نقص أو عطل في القاعات
+                </h2>
+                <p class="text-slate-500 text-xs mt-1">
+                    ساهم معنا في تحسين بيئة الدراسة. أبلغ عن أي عطل في المقاعد، الإضاءة، المكيفات، أو النواقص الأخرى لتصل مباشرة للأمين المالي.
+                </p>
+            </div>
+
+            <form id="issue-form" onsubmit="submitIssue(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">رقم القاعة أو اسم المكان *</label>
+                    <input type="text" id="iss-location" required placeholder="مثال: قاعة المحاضرات الكبرى (3) أو المبنى الجديد" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">وصف النقص أو العطل *</label>
+                    <textarea id="iss-description" rows="4" required placeholder="ما هو النقص الموجود؟ (مثلاً: مقاعد مكسورة، مشكلة في السبورة...)" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-check"></i>
+                    إرسال البلاغ عبر الواتساب للأمين المالي
+                </button>
+            </form>
+        </div>
+
+    </main>
+
+    <!-- الفوتر Footer -->
+    <footer class="mt-12 text-center text-slate-400 text-xs">
+        <p>خزينة النخبة الشاملة &copy; 2026 - جميع الحقوق محفوظة للدفعة</p>
+    </footer>
+
+    <!-- جافاسكريبت للتحكم بالتبويبات والإرسال المباشر للواتساب -->
+    <script>
+        // إرسال الطلبات والبلاغات مباشرة إلى واتساب دون تخزينها في قاعدة البيانات
+        const ADMIN_WHATSAPP = "249113991528";
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const type = new URLSearchParams(window.location.search).get('type');
+            if (type === 'issue') switchTab('issue');
+        });
+
+        function switchTab(tab) {
+            const supportForm = document.getElementById('form-support');
+            const issueForm = document.getElementById('form-issue');
+            const btnSupport = document.getElementById('btn-support');
+            const btnIssue = document.getElementById('btn-issue');
+
+            if (tab === 'support') {
+                supportForm.classList.remove('hidden');
+                issueForm.classList.add('hidden');
+                btnSupport.className = "flex-1 py-3 text-sm font-bold rounded-xl transition bg-white text-slate-900 shadow-sm flex items-center justify-center gap-2";
+                btnIssue.className = "flex-1 py-3 text-sm font-bold rounded-xl transition text-slate-600 flex items-center justify-center gap-2";
+            } else {
+                issueForm.classList.remove('hidden');
+                supportForm.classList.add('hidden');
+                btnIssue.className = "flex-1 py-3 text-sm font-bold rounded-xl transition bg-white text-slate-900 shadow-sm flex items-center justify-center gap-2";
+                btnSupport.className = "flex-1 py-3 text-sm font-bold rounded-xl transition text-slate-600 flex items-center justify-center gap-2";
+            }
+        }
+
+        function openWhatsApp(message) {
+            const url = 'https://wa.me/' + ADMIN_WHATSAPP + '?text=' + encodeURIComponent(message);
+            window.open(url, '_blank');
+        }
+
+        function submitSupport(e) {
+            e.preventDefault();
+            const name = document.getElementById('sup-name').value.trim() || 'لم يذكر اسمه';
+            const details = document.getElementById('sup-details').value.trim();
+            const contact = document.getElementById('sup-contact').value.trim();
+
+            const message =
+                '*🔒 طلب دعم مالي / مساعدة - خزينة النخبة*\\n\\n' +
+                '👤 *الاسم:* ' + name + '\\n' +
+                '📝 *تفاصيل الطلب:* ' + details + '\\n' +
+                '📞 *وسيلة التواصل:* ' + contact + '\\n\\n' +
+                '_يرجى التعامل مع الطلب بسرية._';
+
+            openWhatsApp(message);
+        }
+
+        function submitIssue(e) {
+            e.preventDefault();
+            const location = document.getElementById('iss-location').value.trim();
+            const description = document.getElementById('iss-description').value.trim();
+
+            const message =
+                '*⚠️ بلاغ عن نقص أو عطل - خزينة النخبة*\\n\\n' +
+                '🏫 *المكان/القاعة:* ' + location + '\\n' +
+                '🔧 *وصف النقص أو العطل:* ' + description;
+
+            openWhatsApp(message);
+        }
+    </script>
 </body>
 </html>
