@@ -81,7 +81,7 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
    </div>
    <div class="hidden md:flex items-center gap-5 text-sm text-amber-100">
     <a href="#finance">الموقف المالي</a>
-    <a href="#goals">الهدف</a>
+    <a href="#goals">رسالتنا</a>
     <a href="#announcements">الإعلانات</a>
     <a href="#services">الخدمات</a>
     <a href="#faq">الأسئلة الشائعة</a>
@@ -206,34 +206,42 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
  </div>
 </section>
 
-<!-- 4 هدف الخزنة -->
+<!-- 4 رسالتنا وأهداف الخزنة -->
 <section id="goals">
- <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">التخطيط المالي</span></div>
- <h2 class="text-2xl font-black mb-4">هدف الخزنة ومراحل الإنجاز</h2>
- <div class="card p-6">
-  <div class="flex flex-col md:flex-row items-start gap-5">
-   <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl shrink-0"><i class="fa-solid fa-bullseye"></i></div>
-   <div class="flex-1 w-full">
-    <div class="flex flex-wrap justify-between items-center gap-3">
-     <div><h3 class="font-extrabold text-lg">هدفنا الوصول إلى 3 مليون جنيه</h3><p class="text-sm text-slate-500 mt-1">كل مساهمة تقربنا من تحقيق الهدف.</p></div>
-     <div class="text-left"><p class="text-xs text-slate-400">الهدف المالي</p><p id="goal-target" class="font-black text-xl">3,000,000 ج.س</p></div>
+ <div class="flex items-center gap-2 mb-1"><div class="gold-line"></div><span class="section-kicker">رسالتنا وأثرنا</span></div>
+ <h2 class="text-2xl font-black mb-4">هدفنا أن ننجز ونساعد</h2>
+ <div class="rounded-3xl p-6 md:p-9 text-white overflow-hidden relative" style="background:linear-gradient(125deg,#142440,#233A5C)">
+  <div class="absolute -left-10 -top-10 w-44 h-44 rounded-full opacity-10" style="background:#D6AD55"></div>
+  <div class="relative z-10">
+   <div class="flex flex-col md:flex-row items-center md:items-start gap-5 text-center md:text-right">
+    <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shrink-0" style="background:rgba(214,173,85,.16);color:#D6AD55"><i class="fa-solid fa-hand-holding-heart"></i></div>
+    <div class="flex-1">
+     <p class="text-xs font-bold tracking-wide mb-2" style="color:#E8C979">خزينة النخبة · الأمانة · التكافل · التعاون</p>
+     <h3 class="font-black text-2xl md:text-3xl leading-relaxed">معاً لدفعة أقوى وأكثر تكافلاً</h3>
+     <p class="text-sm md:text-base leading-8 mt-3" style="color:#E2E8F0">هدفنا ما مجرد جمع المال، بل توفير احتياجات الدفعة، وتحسين بيئتنا الدراسية، والوقوف مع زملائنا وقت الحاجة. قيمة الخزينة الحقيقية في الأثر الذي نصنعه معاً.</p>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
-     <div class="bg-emerald-50 rounded-xl p-4"><p class="text-xs text-emerald-700 font-bold">المبلغ المحقق</p><p id="goal-achieved" class="text-xl font-black text-emerald-700 mt-2">—</p></div>
-     <div class="bg-amber-50 rounded-xl p-4"><p class="text-xs text-amber-700 font-bold">المبلغ المتبقي</p><p id="goal-remaining" class="text-xl font-black text-amber-700 mt-2">—</p></div>
+   </div>
+   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+    <div class="rounded-2xl p-5 flex items-start gap-4" style="background:rgba(255,255,255,.08)">
+     <i class="fa-solid fa-graduation-cap text-2xl mt-1" style="color:#E8C979"></i>
+     <div><h4 class="font-extrabold">توفير احتياجات الدفعة</h4><p class="text-xs leading-6 mt-2" style="color:#CBD5E1">تغطية احتياجات القاعات وما يلزم لاستمرار البيئة الدراسية بصورة أفضل.</p></div>
     </div>
-    <div class="flex justify-between items-center mt-5 mb-2"><span class="text-sm font-bold">نسبة تحقيق الهدف</span><span id="goal-percent" class="text-lg font-black text-amber-700">—</span></div>
-    <div class="progress-track" style="height:14px"><div id="goal-progress" class="progress-fill" style="width:0%"></div></div>
-    <div class="mt-7">
-     <h4 class="font-extrabold text-sm mb-5">محطات الوصول إلى الهدف</h4>
-     <div id="milestones" class="space-y-5">
-      <div class="milestone"><p class="font-bold text-sm">500,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الأولى</p></div>
-      <div class="milestone"><p class="font-bold text-sm">1,000,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الثانية</p></div>
-      <div class="milestone"><p class="font-bold text-sm">1,500,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الثالثة</p></div>
-      <div class="milestone"><p class="font-bold text-sm">2,000,000 جنيه</p><p class="text-xs text-slate-400 mt-1">المحطة الرابعة</p></div>
-      <div class="milestone"><p class="font-bold text-sm">3,000,000 جنيه</p><p class="text-xs text-slate-400 mt-1">تحقيق الهدف النهائي</p></div>
-     </div>
+    <div class="rounded-2xl p-5 flex items-start gap-4" style="background:rgba(255,255,255,.08)">
+     <i class="fa-solid fa-heart text-2xl mt-1" style="color:#E8C979"></i>
+     <div><h4 class="font-extrabold">مساعدة الزملاء</h4><p class="text-xs leading-6 mt-2" style="color:#CBD5E1">مساندة الحالات التي تحتاج إلى الدعم والوقوف مع بعضنا في الظروف الصعبة.</p></div>
     </div>
+    <div class="rounded-2xl p-5 flex items-start gap-4" style="background:rgba(255,255,255,.08)">
+     <i class="fa-solid fa-people-group text-2xl mt-1" style="color:#E8C979"></i>
+     <div><h4 class="font-extrabold">تقوية روح التعاون</h4><p class="text-xs leading-6 mt-2" style="color:#CBD5E1">كل مساهمة، مهما كان قدرها، تعزز روح المشاركة والمسؤولية بين أفراد الدفعة.</p></div>
+    </div>
+    <div class="rounded-2xl p-5 flex items-start gap-4" style="background:rgba(255,255,255,.08)">
+     <i class="fa-solid fa-handshake-angle text-2xl mt-1" style="color:#E8C979"></i>
+     <div><h4 class="font-extrabold">تحويل المساهمات إلى إنجازات</h4><p class="text-xs leading-6 mt-2" style="color:#CBD5E1">توجيه موارد الخزينة للاحتياجات والأولويات التي تخدم الدفعة فعلياً.</p></div>
+    </div>
+   </div>
+   <div class="text-center mt-8 pt-5 border-t border-white/15">
+    <p class="font-black text-lg" style="color:#E8C979">معاً نقدر نعمل الفرق.</p>
+    <p class="text-xs mt-2" style="color:#CBD5E1">النجاح ما بنقيسه بالمبلغ الذي نجمعه فقط، بل بما نحققه به.</p>
    </div>
   </div>
  </div>
@@ -436,7 +444,6 @@ body{background:#fff}.card{break-inside:avoid;box-shadow:none!important}
 
 <script>
 /* إعداد اتصال Supabase */
-const TREASURY_GOAL = 3000000;
 const OPENING_CONTRIBUTIONS_COUNT = 235;
 
 const SUPABASE_URL = 'https://cglezfkobtnfvgzdtjhi.supabase.co';
@@ -496,7 +503,7 @@ async function updateFinance() {
 
   if (error || !data) {
     console.error('Supabase finance summary:', error);
-    ['current-balance','total-income','total-expenses','goal-achieved','goal-remaining','goal-percent','expense-percent','balance-percent','chart-income-label','chart-expenses-label','chart-balance-label']
+    ['current-balance','total-income','total-expenses','expense-percent','balance-percent','chart-income-label','chart-expenses-label','chart-balance-label']
       .forEach(id => setText(id, 'غير متاح'));
     setDatabaseStatus(false, 'تعذر تحميل الملخص المالي');
     return false;
@@ -505,7 +512,6 @@ async function updateFinance() {
   const income = Number(data.total_income || 0);
   const expenses = Number(data.total_expenses || 0);
   const balance = Number(data.current_balance ?? (income - expenses));
-  const goal = Number(data.target_amount || TREASURY_GOAL);
 
   setText('total-income', formatMoney(income));
   setText('total-expenses', formatMoney(expenses));
@@ -527,26 +533,6 @@ async function updateFinance() {
   document.getElementById('chart-income-bar').style.width = (income / maxValue * 100) + '%';
   document.getElementById('chart-expenses-bar').style.width = (expenses / maxValue * 100) + '%';
   document.getElementById('chart-balance-bar').style.width = (Math.max(0, balance) / maxValue * 100) + '%';
-
-  const goalRemaining = Math.max(0, goal - income);
-  const goalPercent = goal > 0 ? Math.min(100, Math.max(0, income / goal * 100)) : 0;
-
-  setText('goal-target', formatMoney(goal) + ' ج.س');
-  setText('goal-achieved', formatMoney(income) + ' ج.س');
-  setText('goal-remaining', formatMoney(goalRemaining) + ' ج.س');
-  setText('goal-percent', goalPercent.toFixed(2) + '%');
-  document.getElementById('goal-progress').style.width = goalPercent + '%';
-
-  const stages = [500000, 1000000, 1500000, 2000000, goal];
-  const milestones = document.querySelectorAll('#milestones .milestone');
-  let nextStage = stages.findIndex(stage => income < stage);
-  if (nextStage === -1) nextStage = stages.length;
-
-  milestones.forEach((item, index) => {
-    item.classList.remove('done', 'current');
-    if (income >= stages[index]) item.classList.add('done');
-    else if (index === nextStage) item.classList.add('current');
-  });
 
   return true;
 }
